@@ -17,7 +17,22 @@ def proces(fnam):
       #   print(' %d %s ' %(i,itm[i]))
       if lx > 3:
          dsc = itm[2]
-         dsc = dsc.ljust(21)
+         b1 = dsc.find('INTERNET/PHONE TRSFR')
+         b2 = dsc.find('AUTO TRANSFER DP-LS') 
+         b3 = dsc.find('POS PURCHASE') 
+         b4 = dsc.find('BILL PAYMENT')   
+         b5 = dsc.find('WITHDRAWAL')         
+         if b1 > -1:
+            dsc = dsc.replace('INTERNET/PHONE TRSFR','INTERNET')
+         elif b2 > -1:
+            dsc = dsc.replace('AUTO TRANSFER DP-LS','TRANSFER')
+         elif b3 > -1:
+            dsc = dsc.replace('POS PURCHASE','PURCHASE')
+         elif b4 > -1:
+            dsc = dsc.replace('BILL PAYMENT','BILL PAY')
+         elif b5 > -1:
+            dsc = dsc.replace('WITHDRAWAL','WITHDRWL')
+         dsc = dsc.ljust(10)
          try:         
             amt = float(itm[3])  
             ck  = itm[2]
@@ -69,13 +84,13 @@ def proces(fnam):
             else:   
                g1.write('%s %s %8.2f To acct: %s\n' %(itm[0],dsc,amt,itm[5][0:58]))
          except:
-            print('--') 
+            k=1 
             #print('-%s %s %s %s \n' %(itm[0],itm[3],itm[4],itm[5]))
             #g1.write('-%s %s %s %s \n' %(itm[0],itm[3],itm[4],itm[5]))
       else: 
          #g1.write('---%s \n' %(linb)) 
          #print('---%s \n' %(linb))          
-         print(' ')
+         k=1
    f1.close() 
    #g1.write('--end process %s \n' %(fnam))
    g1.close()   
