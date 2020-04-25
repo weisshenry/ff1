@@ -1,13 +1,18 @@
 # cashFlow1.py 
+# 4/21/20 added 2nd short form output
+#   only relevent ifno
 import sys, os,time, shutil
+import os.path
 import pdb
+db=0
 
-def proCash(fnam):
-   print(' start')
-   f1= open(fnam,'r')
-   g1 = open('CashAcct2020.txt','a')  
+def proCash(xnam,fnam,fnams):
+   print('   start file %s' %(xnam))
+   f1= open(xnam,'r')
+   g1 = open(fnam,'a') 
+   g2 = open(fnams,'a') # short form
    f1lines = f1.readlines()
-   #g1.write('--Process %s lines %d \n' %(fnam,len(f1lines)))
+   #g1.write('--Process %s lines %d \n' %(xnam,len(f1lines)))
    for lina in f1lines:
       linb = lina.rstrip()
       itm = linb.split(',')     
@@ -67,8 +72,10 @@ def proCash(fnam):
                      break
                if gotnum:                     
                   g1.write('%s %s %8.2f To acct: %s\n' %(itm[0],itm[2],amt,itm[5][x6+31:x6+65]))
+                  g2.write('%s %s %8.2f To acct: %s\n' %(itm[0],itm[2],amt,itm[5][x6+31:x6+65]))
                else:                     
-                  g1.write('%s %s %8.2f To acct: %s\n' %(itm[0],itm[2],amt,itm[5][x6+22:x6+65]))                  
+                  g1.write('%s %s %8.2f To acct: %s\n' %(itm[0],itm[2],amt,itm[5][x6+22:x6+65]))  
+                  g2.write('%s %s %8.2f To acct: %s\n' %(itm[0],itm[2],amt,itm[5][x6+22:x6+65]))                   
          elif x7 > -1: 
                y1= len(itm[5]) 
                test = itm[5][x6+28:x6+36]               
@@ -79,30 +86,40 @@ def proCash(fnam):
                      break
                if gotnum:                     
                   g1.write('%s %s %8.2f To acct: %s\n' %(itm[0],itm[2],amt,itm[5][x6+37:x6+70]))
+                  g2.write('%s %s %8.2f To acct: %s\n' %(itm[0],itm[2],amt,itm[5][x6+37:x6+70]))
                else:                     
                   g1.write('%s %s %8.2f To acct: %s\n' %(itm[0],itm[2],amt,itm[5][x6+28:x6+70]))
+                  g2.write('%s %s %8.2f To acct: %s\n' %(itm[0],itm[2],amt,itm[5][x6+28:x6+70]))
          elif x8 > -1:   
-               g1.write('%s %s %8.2f CK Numb: %s\n' %(itm[0],itm[2],amt,itm[1]))                  
+               g1.write('%s %s %8.2f CK Numb: %s\n' %(itm[0],itm[2],amt,itm[1]))  
+               g2.write('%s %s %8.2f CK Numb: %s\n' %(itm[0],itm[2],amt,itm[1]))                  
          else:   
-               g1.write('%s %s %8.2f To acct: %s\n' %(itm[0],itm[2],amt,itm[5][0:58]))      
+               g1.write('%s %s %8.2f To acct: %s\n' %(itm[0],itm[2],amt,itm[5][0:58]))  
+               g2.write('%s %s %8.2f To acct: %s\n' %(itm[0],itm[2],amt,itm[5][0:58]))                   
    f1.close() 
-   #g1.write('--end process %s \n' %(fnam))
-   g1.close()   
-   print('  end') 
+   g1.close() 
+   g2.close()   
    return   
 
-def topcash():
-   print(' start')
-   gx= open('CashAcct2020.txt','w')
-   gx.write('              Cash Flow Account Activity 2020  \n\n')
-   gx.close()
-   fa = '../st3/cashflow03.csv'  
-   proCash(fa);
-   fb = '../st3/cashflow02.csv'
-   proCash(fb);
-   fc = '../st3/cashflow01.csv'
-   proCash(fc);
-   print('  end')   
+def topcash(fnam,fnams):  
+   g1 = open(fnam,'a') 
+   g2 = open(fnams,'a') # short form
+   g1.write('\n              Cashflow Account Activity 2020  \n\n')
+   g2.write('\n              Cashflow Account Activity 2020 - shortform  \n\n')
+   g1.close()
+   g2.close()
+   for i in range(12,9,-1):
+      cashnam ='../st1/cashflow'+str(i)+'.csv'
+      if (db):
+         print('     input file %s' %(cashnam))
+      if os.path.isfile(cashnam):            
+         proCash(cashnam,fnam,fnams)
+   for i in range(9,0,-1): 
+      cashnam ='../st1/cashflow0'+str(i)+'.csv'
+      if (db):
+         print('     input file %s' %(cashnam))        
+      if os.path.isfile(cashnam):            
+         proCash(cashnam,fnam,fnams) 
    return
  
 
