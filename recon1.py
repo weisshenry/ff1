@@ -37,6 +37,7 @@ def recon1():
    print('   Start - reconciled accounts')   
    fnam2='Accounts2020t.txt'  # reconciled 
    hx = open(fnam2,'w')
+   hx.write('        Accounts reconciled 2020 \n\n')
    fnam1='Accounts2020s.txt'
    gx = open(fnam1,'r')
    lines = gx.readlines()
