@@ -6,35 +6,51 @@ from dateutil import parser
 import re
 #import pudb
 
+filex='../st1/expenses20.csv'
+filet='../st1/expenses20.txt'
+
+def cleanit(filea,fileb): 
+   fx = open(filea,'rb')
+   gx = open(fileb,'w+b')
+   dat = fx.read() 
+   datx = bytearray(dat)
+   lx = len(dat)  
+   for i in range(lx):
+      if (datx[i] ==0x96):
+         datx[i] = 0x20 
+      if (datx[i] ==0x92):
+         datx[i] = 0x20    
+   gx.write(datx)
+   fx.close() 
+   gx.close()
+   return
+
 def findit(amt,dd):
-   #print(' start of findit %s' %(amt))
-   #pu.db
-   fnam3='../st1/expenses20.txt' 
-   try:
-      fx = open(fnam3,'r') 
+   #print(' start of findit %s' %(amt))      
+   try:      
+      fx = open(filet,'r') 
+      lines = fx.readlines()
+      fx.close()      
    except:
-      print('  File %s not found ' %(fnam3))
-      sys.exit()      
-   lines = fx.readlines()
-   fx.close()
-   la = len(lines)   
+      print('  File %s not found ' %(filet))      
+      return 2     
+   la = len(lines)     
    for i in range(la):         
       lina = lines[i]
       lina = lina.rstrip()
-      x1 = lina.find(amt) 
-      #pu.db      
+      x1 = lina.find(amt)          
       if x1 > -1:               
          match = re.findall('\d{2}/\d{2}/\d{2}', lina)        
          dx = datetime.strptime(match[0],"%m/%d/%y")                         
       if ((x1>-1) and (len(match)==1)):
          #print('  got it ')                   
          return 1
-   #print(' end of findit search') 
-   #pdb.set_trace()   
+   #print(' end of findit search')   
    return 0
     
 def recon1():
    print('   Start - reconciled accounts')   
+   cleanit(filex,filet)
    fnam2='Accounts2020t.txt'  # reconciled 
    hx = open(fnam2,'w')
    hx.write('        Accounts reconciled 2020 \n\n')
@@ -50,17 +66,19 @@ def recon1():
       amt = amt.rstrip()
       amt = amt.lstrip()
       amt = amt[1:len(amt)]
-      date=linb[0:8] 
+      date=linb[0:8]      
       try:
          dd = datetime.strptime(date,"%m/%d/%y")       
          famt = float(amt)       
-         #print('  going to findit')
+         #print('  going to finditx')         
          x = findit(amt,dd)
          ct = ct+1
          if x:
             hx.write('.  %s\n' %(linb))
+         elif x==0:
+            hx.write('-->%s\n' %(linb))
          else:
-            hx.write('-->%s\n' %(linb))            
+            sys.exit()         
       except:
          continue 
    hx.close()        
