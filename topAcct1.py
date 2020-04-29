@@ -43,7 +43,9 @@ if __name__ == "__main__":
    topproc('con','Construction',fnam,fnams) 
    topproc('farm','Farm',fnam,fnams)     
    print('  end part1, start recon') 
-   recon1.recon1()   
+   ret = recon1.recon1()   
+   if ret < 0:
+      print('  error recon %d' %(ret))
    sys.exit()  
  
 

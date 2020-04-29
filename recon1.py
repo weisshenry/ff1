@@ -14,6 +14,7 @@ def cleanit(filea,fileb):
    gx = open(fileb,'w+b')
    dat = fx.read() 
    datx = bytearray(dat)
+   lx = 0
    lx = len(dat)  
    for i in range(lx):
       if (datx[i] ==0x96):
@@ -23,7 +24,7 @@ def cleanit(filea,fileb):
    gx.write(datx)
    fx.close() 
    gx.close()
-   return
+   return lx
 
 def findit(amt,dd):
    #print(' start of findit %s' %(amt))      
@@ -33,7 +34,7 @@ def findit(amt,dd):
       fx.close()      
    except:
       print('  File %s not found ' %(filet))      
-      return 2     
+      return -2     
    la = len(lines)     
    for i in range(la):         
       lina = lines[i]
@@ -50,7 +51,10 @@ def findit(amt,dd):
     
 def recon1():
    print('   Start - reconciled accounts')   
-   cleanit(filex,filet)
+   lx = cleanit(filex,filet)
+   if (lx < 5):
+       print(' Error: %s not found' %(fielex))
+       return -1
    fnam2='Accounts2020t.txt'  # reconciled 
    hx = open(fnam2,'w')
    hx.write('        Accounts reconciled 2020 \n\n')
@@ -59,6 +63,7 @@ def recon1():
    lines = gx.readlines()
    lx = len(lines)
    ct =0   
+   errx =0
    for i in range(lx):
       lina = lines[i]
       linb = lina.rstrip() 
@@ -73,17 +78,23 @@ def recon1():
          #print('  going to finditx')         
          x = findit(amt,dd)
          ct = ct+1
-         if x:
+         if x > 0:
             hx.write('.  %s\n' %(linb))
          elif x==0:
             hx.write('-->%s\n' %(linb))
          else:
-            sys.exit()         
+            errx = 1         
       except:
          continue 
+      if errx==1:
+         break      
    hx.close()        
-   gx.close()    
-   print('   Processed %d records' %(ct))   
-   sys.exit()  
+   gx.close()
+   if errx==1: 
+      print('  Error processing records %s ' %(filet))  
+      return -2
+   else:      
+      print('   Processed %d records' %(ct))   
+   return 0  
  
 
