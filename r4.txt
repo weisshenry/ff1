@@ -1,0 +1,69 @@
+ $ cat r4.py
+# Import modules
+import subprocess
+import ipaddress
+import socket
+import os, time
+
+def scanit():
+  w='1';
+  fx = open('ip1.txt','w')
+  net_addr = u'192.168.1.0/24';
+  # Create the network
+  ip_net = ipaddress.ip_network(net_addr)
+  all_hosts = list(ip_net.hosts())
+  # run the ping command with subprocess.popen interface
+  for i in range(20):
+    outx = subprocess.Popen(['ping',str(all_hosts[i]),'-c','1',"-W","1"],stdout=subprocess.PIPE);
+    outx.wait();
+    outx.poll();
+    #print('    '+str(all_hosts[i])+" ")
+    try:
+      nam = socket.gethostbyaddr(str(all_hosts[i]));
+    except:
+      xxx=1;
+    #print '    '+str(nam)
+    namm= str(nam);
+    x = namm.find('IPCAM');
+    if x>0:
+            #print('     got '+namm)
+            y = namm.find('168.1.');
+            z = namm.rfind(']');
+            w = namm[y+6:z-1];
+            #print('   %s ' %(str(nam)))
+            print('   %s ' %(str(all_hosts[i])))
+            fx.write('   %s \n' %(str(all_hosts[i])))
+  fx.close()
+  return
+
+def pingit():
+   time.sleep(15)
+   gx = open('arp1.txt','r')
+   lines = gx.readlines()
+   print(' %d lines ' %(len(lines)))
+   for line in lines:
+      lina = line.rstrip()
+      #print('  %s ' %(lina))
+      x1 = lina.find('cb:c8:e7')
+      if x1 > -1:
+         ipadr = line[7:x1-14]
+         print(' IP address: %s' %(ipadr))
+         kx = open('arp2.txt','w')
+         kx.write('%s \n' %(ipadr))
+         kx.close()
+   gx.close()
+   return
+
+def arpit():
+   hx = open('arp1.txt','w')
+   outx = subprocess.Popen(['arp', '-a'],stdout=hx);
+   hx.write(' end \n')
+   hx.close()
+   return
+
+if __name__ == '__main__':
+  print('  start ');
+  scanit();
+  arpit()
+  pingit()
+john@raspberry
