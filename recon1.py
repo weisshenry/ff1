@@ -1,4 +1,4 @@
-# topAcct1.py  Process accounts
+# recon1.py  Reconcile all accounts
 import sys, os,time, shutil
 from datetime import datetime
 import numpy as np
@@ -6,10 +6,11 @@ from dateutil import parser
 import re
 #import pudb
 import pdb
+vb = False
 
-filex='../st1/expenses20.csv'
-filet='../st1/expenses20.txt'
-filec='expenses20t.txt'  #reconciled
+filex='./out1/expenses20.csv'
+filet='./out1/expenses20.txt'
+filec='./out1/expenseAnnotated.txt'  #reconciled
 
 def prntstk(stk,file1,file2):
    mx = open(file1,'r')
@@ -27,11 +28,16 @@ def prntstk(stk,file1,file2):
             if sss is not None:                           
                nnn =re.findall('\d*\.?\d+',lind)
                if nnn is not None:
-                   stg = sss[0]  
+                   try:
+                      stg = sss[0]  
+                   except:
+                      print('gotit')
+                      pdb.set_trace()                      
                    sth = stg.replace('"',' ')                                         
                    linf =('%-10s %-50s %-10s' %(mat[0],sth,nnn[3]))
                    #linf = mat[0]+'  '+stg+'  '+nnn[3]
-                   print('-->%s' %(linf))
+                   if vb:
+                      print('-->%s' %(linf))
       else:
          linf = lind      
       if x > -1:
@@ -97,18 +103,19 @@ def findit(amt,dd,stk):
    #print(' end of findit search')   
    return 0,stk
     
-def recon1():
-   print('   Start - reconciled accounts')   
-   lx = cleanit(filex,filet)
-   if (lx < 5):
+# fnams='./out1/Accounts2020_sorted.txt' 
+# fnamR='./out1/Reconciled.txt'  # reconciled
+def recon1(fnams,fnamR):
+   print('   Start - reconciled accounts')  
+   hx = open(fnamR,'w')
+   hx.write('        Accounts reconciled 2020 \n')
+   hx.write('   Any --> needs to added to Expenses \n\n')   
+   lxx = cleanit(filex,filet)
+   if (lxx < 5):
        print(' Error: %s not found' %(filex))
-       return -1
-   fnam2='Accounts2020t.txt'  # reconciled
-   stk = loadstk(filet)   
-   hx = open(fnam2,'w')
-   hx.write('        Accounts reconciled 2020 \n\n')
-   fnam1='Accounts2020s.txt'
-   gx = open(fnam1,'r')
+       return -1  
+   stk = loadstk(filet)  
+   gx = open(fnams,'r')
    lines = gx.readlines()
    lx = len(lines)
    ct =0   

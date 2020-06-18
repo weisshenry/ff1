@@ -1,4 +1,4 @@
-# topAcct1.py  Process accounts
+# proces1.py  Process accounts
 import sys, os,time, shutil
 import numpy as np
 import pdb
@@ -78,21 +78,3 @@ def topproc(nam,nam1,fnam,fnams):
          proces(xnam,fnam,fnams)
 
    return   
-
-if __name__ == "__main__":
-   print(' start')
-   cashFlow1.topcash()
-   fnam='Accounts2020.txt'
-   gx= open(fnam,'w')
-   gx.close()
-   fnams='Accounts2020s.txt'
-   gy= open(fnams,'w')
-   gy.close()
-   topproc('guesth','Guesthouse',fnam,fnams)
-   topproc('main','Mainhouse',fnam,fnams)   
-   topproc('con','Construction',fnam,fnams) 
-   topproc('farm','Farm',fnam,fnams)     
-   print('  end')   
-   sys.exit()  
- 
-
