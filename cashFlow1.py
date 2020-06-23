@@ -46,11 +46,11 @@ def proCash(xnam,fnam,fnams):
             continue         
          ck  = itm[2]
          #-- process item[5]       
-         x1 = itm[5].find('0501')
-         x2 = itm[5].find('9206')
-         x3 = itm[5].find('0584')
-         x4 = itm[5].find('0509')
-         x5 = itm[5].find('2638')
+         x1 = itm[5].find('0501')  #MainHouse
+         x2 = itm[5].find('9206')  #GuestHouse
+         x3 = itm[5].find('0584')  #Farm
+         x4 = itm[5].find('0509')  #Construction
+         x5 = itm[5].find('2638')  #Loan
          x6 = itm[5].find('POS PURCHASE TERMINAL')
          x7 = itm[5].find('MERCHANT PURCHASE TERMINAL')
          x8 = ck.find('CHECK')
