@@ -9,7 +9,7 @@ import pdb
 vb = False
 
 filex='./out1/expenses20.csv'
-filet='./out1/expenses20.txt'
+filet='./out1/expenses20.txt'        #exact copy of expenses20.csv
 filec='./out1/expenseAnnotated.txt'  #reconciled
 
 def prntstk(stk,file1,file2):
@@ -33,8 +33,13 @@ def prntstk(stk,file1,file2):
                    except:
                       print('gotit')
                       pdb.set_trace()                      
-                   sth = stg.replace('"',' ')                                         
-                   linf =('%-10s %-50s %-10s' %(mat[0],sth,nnn[3]))
+                   sth = stg.replace('"',' ')  
+                   y = len(nnn)                   
+                   linf =('%-10s %-50s %10s' %(mat[0],sth,nnn[y-1]))
+                   # x1 = sth.find('Schroeder')
+                   # if x1 > -1:
+                      # print('gotit')
+                      # pdb.set_trace()
                    #linf = mat[0]+'  '+stg+'  '+nnn[3]
                    if vb:
                       print('-->%s' %(linf))
@@ -109,7 +114,7 @@ def recon1(fnams,fnamR):
    print('   Start - reconciled accounts')  
    hx = open(fnamR,'w')
    hx.write('        Accounts reconciled 2020 \n')
-   hx.write('   Any --> needs to added to Expenses \n\n')   
+   hx.write('   Any --> needs to be added to Expenses \n\n')   
    lxx = cleanit(filex,filet)
    if (lxx < 5):
        print(' Error: %s not found' %(filex))

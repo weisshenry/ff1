@@ -4,7 +4,9 @@
 import sys, os,time, shutil
 import os.path
 import pdb
-db=0
+db=0       
+#fnam= './out1/Accounts2020.txt'            names from topAcct1
+#fnams='./out1/Accounts2020_sorted.txt'     cashflow activity
 
 def proCash(xnam,fnam,fnams):
    print('   start file %s' %(xnam))
@@ -105,7 +107,10 @@ def topcash(fnam,fnams):
    g1 = open(fnam,'a') 
    g2 = open(fnams,'a') # short form
    g1.write('\n              Cashflow Account Activity 2020  \n\n')
+   g1.write('This is all transactions on all the cashflow accounts \n')
    g2.write('\n              Cashflow Account Activity 2020 - shortform  \n\n')
+   g2.write('This is sorted all cashflow activity, does not include any transfers \n')
+   g2.write('to the Guesthouse, MainHouse, Construction, or Farm accounts. \n\n')
    g1.close()
    g2.close()
    for i in range(12,9,-1):
