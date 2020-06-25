@@ -113,8 +113,9 @@ def findit(amt,dd,stk):
 def recon1(fnams,fnamR):
    print('   Start - reconciled accounts')  
    hx = open(fnamR,'w')
-   hx.write('        Accounts reconciled 2020 \n')
-   hx.write('   Any --> needs to be added to Expenses \n\n')   
+   hx.write('   Reconciled.txt  \n')
+   hx.write('All expenses on bank accounts should be on paper trail.\n')
+   hx.write('Step3: Any --> needs to be added to Expenses.csv (paper trail) \n\n')   
    lxx = cleanit(filex,filet)
    if (lxx < 5):
        print(' Error: %s not found' %(filex))
@@ -156,7 +157,36 @@ def recon1(fnams,fnamR):
       print('  Error processing records %s ' %(filet))  
       return -2
    else:      
-      print('   Processed %d records' %(ct))          
+      print('   Processed %d records' %(ct)) 
+   annotat1(filet)  # annotate expenses after they are processed   
+   annotat2(filec)  # annotate expenses after they are processed      
    return 0  
- 
+   
+def annotat1(filet):  
+   ax = open(filet,'r') 
+   lines = ax.readlines()
+   ax.close() 
+   bx = open(filet,'w')
+   bx.write('Step1: Check that this file is an exact copy of expenses.csv\n\n')
+   la = len(lines)     
+   for i in range(la):         
+      bx.write(lines[i])
+   bx.close
+   return   
+   
+def annotat2(filec):  
+   ax = open(filec,'r') 
+   lines = ax.readlines()
+   ax.close() 
+   bx = open(filec,'w')
+   bx.write('Expenses Annotated.txt  \n')
+   bx.write('Step2: This is list of all expenses from paper trail\n')
+   bx.write('       Any line with . means this expense was also in bank statements. \n')
+   bx.write('       Check why any w/o a dot are only from our paper trail.\n')
+   bx.write('       These expenses probably came from personal accounts. \n\n')
+   la = len(lines)     
+   for i in range(la):         
+      bx.write(lines[i])
+   bx.close
+   return 
 
