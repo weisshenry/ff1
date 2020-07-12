@@ -4,15 +4,15 @@
 import sys, os,time, shutil
 import os.path
 import pdb
-db=0       
-#fnam= './out1/Accounts2020.txt'            names from topAcct1
-#fnams='./out1/Accounts2020_sorted.txt'     cashflow activity
+db=0  
+#acctTxt= './out1/Accounts2020.txt'            names from topAcct1
+#acctSort='./out1/Accounts2020_sorted.txt'     cashflow activity
 
-def proCash(xnam,fnam,fnams):
+def proCash(xnam,acctTxt,acctSort):
    print('   start file %s' %(xnam))
    f1= open(xnam,'r')
-   g1 = open(fnam,'a') 
-   g2 = open(fnams,'a') # short form
+   g1 = open(acctTxt,'a') 
+   g2 = open(acctSort,'a') # short form
    f1lines = f1.readlines()
    #g1.write('--Process %s lines %d \n' %(xnam,len(f1lines)))
    for lina in f1lines:
@@ -103,9 +103,9 @@ def proCash(xnam,fnam,fnams):
    g2.close()   
    return   
 
-def topcash(fnam,fnams):  
-   g1 = open(fnam,'a') 
-   g2 = open(fnams,'a') # short form
+def topcash(acctTxt,acctSort):  
+   g1 = open(acctTxt,'a') 
+   g2 = open(acctSort,'a') # short form
    g1.write('\n              Cashflow Account Activity 2020  \n\n')
    g1.write('This is all transactions on all the cashflow accounts \n')
    g2.write('\n              Cashflow Account Activity 2020 - shortform  \n\n')
@@ -118,13 +118,13 @@ def topcash(fnam,fnams):
       if (db):
          print('     input file %s' %(cashnam))
       if os.path.isfile(cashnam):            
-         proCash(cashnam,fnam,fnams)
+         proCash(cashnam,acctTxt,acctSort)
    for i in range(9,0,-1): 
       cashnam ='../st1/cashflow0'+str(i)+'.csv'
       if (db):
          print('     input file %s' %(cashnam))        
       if os.path.isfile(cashnam):            
-         proCash(cashnam,fnam,fnams) 
+         proCash(cashnam,acctTxt,acctSort) 
    return
  
 

@@ -57,24 +57,4 @@ def proces(fx,fnam,fnams):
    return   
    
 
-def topproc(nam,nam1,fnam,fnams):
-   gx= open(fnam,'a')
-   gx.write('\n              '+nam1+' Account Activity 2020  \n\n')
-   gx.close()   
-   gy= open(fnams,'a')
-   gy.write('\n              '+nam1+' Account Activity 2020 - shortform   \n\n')
-   gy.close()
-   for i in range(12,9,-1):
-      xnam ='../st1/'+nam+str(i)+'.csv'
-      if (db):
-         print('     input file %s' %(xnam))
-      if os.path.isfile(xnam):            
-         proces(xnam,fnam,fnams)
-   for i in range(9,0,-1): 
-      xnam ='../st1/'+nam+'0'+str(i)+'.csv'
-      if (db):
-         print('     input file %s' %(xnam))
-      if os.path.isfile(xnam):            
-         proces(xnam,fnam,fnams)
-
-   return   
+ 
