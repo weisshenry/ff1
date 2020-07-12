@@ -46,9 +46,9 @@ def prntstk(stk,file1,file2):
       else:
          linf = lind      
       if x > -1:
-         px.write(' '+linf+'\n')
+         px.write('   '+linf+'\n')
       else: 
-         px.write('.'+linf+'\n')   
+         px.write('...'+linf+'\n')   
       #pdb.set_trace()
    px.close()          
    return
@@ -181,7 +181,7 @@ def annotat2(filec):
    bx = open(filec,'w')
    bx.write('Expenses Annotated.txt  \n')
    bx.write('Step2: This is list of all expenses from paper trail\n')
-   bx.write('       Any line with . means this expense was also in bank statements. \n')
+   bx.write('       Any line with ... means this expense was also in bank statements. \n')
    bx.write('       Check why any w/o a dot are only from our paper trail.\n')
    bx.write('       These expenses probably came from personal accounts. \n\n')
    la = len(lines)     
