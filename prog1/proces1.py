@@ -4,12 +4,14 @@ import numpy as np
 import pdb
 import cashFlow1
 db=0
+#acctTxt= './out2/Accounts2020.txt'
+#acctSort='./out1/Accounts2020_sorted.txt' 
 
-def proces(fx,fnam,fnams):
+def proces(fx,acctTxt,acctSort):
    print('   start file %s' %(fx))   
    f1= open(fx,'r')
-   g1 = open(fnam,'a')
-   g2 = open(fnams,'a')   
+   g1 = open(acctTxt,'a')
+   g2 = open(acctSort,'a')   
    #pdb.set_trace()
    f1lines = f1.readlines()
    #g1.write('--Process %s lines %d \n' %(fnam,len(f1lines)))

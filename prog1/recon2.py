@@ -8,13 +8,13 @@ import re
 import pdb
 vb = False
 
-filex='./out1/expenses20.csv'
-filet='./out1/expenses20.txt'        #exact copy of expenses20.csv
-filec='./out1/expenseAnnotated.txt'  #reconciled
+expCsv='./in1/expenses20.csv'
+expTxt='./in1/expenses20.txt'       #exact copy of expenses20.csv
+expAnt='./out1/expenseAnnotated.txt' #annotated
 
-def prntstk(stk,file1,file2):
-   mx = open(file1,'r')
-   px = open(file2,'w')
+def prntstk(stk,expTxt,expAnt):
+   mx = open(expTxt,'r')
+   px = open(expAnt,'w')
    linb = mx.readlines()  
    mx.close()
    for i in range(len(linb )):
@@ -54,8 +54,8 @@ def prntstk(stk,file1,file2):
    return
    
 
-def loadstk(file1):
-   jx = open(file1,'r')
+def loadstk(expTxt):
+   jx = open(expTxt,'r')
    lines = jx.readlines()
    jx.close()
    ln = len(lines)
@@ -65,9 +65,10 @@ def loadstk(file1):
       stk.append(val)
    return stk   
 
-def cleanit(filea,fileb): 
-   fx = open(filea,'rb')
-   gx = open(fileb,'w+b')
+def cleanit(expCsv,expTxt):
+   #pdb.set_trace()
+   fx = open(expCsv,'rb')
+   gx = open(expTxt,'w+b')
    dat = fx.read() 
    datx = bytearray(dat)
    lx = 0
@@ -85,11 +86,11 @@ def cleanit(filea,fileb):
 def findit(amt,dd,stk):
    #print(' start of findit %s' %(amt))      
    try:      
-      fx = open(filet,'r') 
+      fx = open(expTxt,'r') 
       lines = fx.readlines()
       fx.close()      
    except:
-      print('  File %s not found ' %(filet))      
+      print('  File %s not found ' %(expTxt))      
       return -2, stk    
    la = len(lines)     
    for i in range(la):         
@@ -108,24 +109,26 @@ def findit(amt,dd,stk):
    #print(' end of findit search')   
    return 0,stk
     
-# fnams='./out1/Accounts2020_sorted.txt' 
-# fnamR='./out1/Reconciled.txt'  # reconciled
-def recon1(fnams,fnamR):
+#acctSort='../out1/Accounts2020_sorted.txt' 
+#acctRecon='../out1/Reconciled.txt'  # reconciled
+def recon1(acctSort,acctRecon):
    print('   Start - reconciled accounts')  
-   hx = open(fnamR,'w')
+   #pdb.set_trace()
+   hx = open(acctRecon,'w')
    hx.write('   Reconciled.txt  \n')
    hx.write('All expenses on bank accounts should be on paper trail.\n')
    hx.write('Step3: Any --> needs to be added to Expenses.csv (paper trail) \n\n')   
-   lxx = cleanit(filex,filet)
+   lxx = cleanit(expCsv,expTxt)
    if (lxx < 5):
-       print(' Error: %s not found' %(filex))
+       print(' Error: %s not found' %(expCsv))
        return -1  
-   stk = loadstk(filet)  
-   gx = open(fnams,'r')
+   stk = loadstk(expTxt)  
+   gx = open(acctSort,'r')
    lines = gx.readlines()
    lx = len(lines)
    ct =0   
    errx =0
+   #pdb.set_trace()
    for i in range(lx):
       lina = lines[i]
       linb = lina.rstrip() 
@@ -152,21 +155,21 @@ def recon1(fnams,fnamR):
          break      
    hx.close()        
    gx.close()
-   prntstk(stk,filet,filec)
+   prntstk(stk,expTxt,expAnt)
    if errx==1: 
-      print('  Error processing records %s ' %(filet))  
+      print('  Error processing records %s ' %(expTxt))  
       return -2
    else:      
       print('   Processed %d records' %(ct)) 
-   annotat1(filet)  # annotate expenses after they are processed   
-   annotat2(filec)  # annotate expenses after they are processed      
+   annotat1(expTxt)  # annotate expenses after they are processed   
+   annotat2(expAnt)  # annotate expenses after they are processed      
    return 0  
    
-def annotat1(filet):  
-   ax = open(filet,'r') 
+def annotat1(expTxt):  
+   ax = open(expTxt,'r') 
    lines = ax.readlines()
    ax.close() 
-   bx = open(filet,'w')
+   bx = open(expTxt,'w')
    bx.write('Step1: Check that this file is an exact copy of expenses.csv\n\n')
    la = len(lines)     
    for i in range(la):         
@@ -174,11 +177,11 @@ def annotat1(filet):
    bx.close
    return   
    
-def annotat2(filec):  
-   ax = open(filec,'r') 
+def annotat2(expAnt):  
+   ax = open(expAnt,'r') 
    lines = ax.readlines()
    ax.close() 
-   bx = open(filec,'w')
+   bx = open(expAnt,'w')
    bx.write('Expenses Annotated.txt  \n')
    bx.write('Step2: This is list of all expenses from paper trail\n')
    bx.write('       Any line with ... means this expense was also in bank statements. \n')

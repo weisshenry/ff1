@@ -5,7 +5,7 @@ import sys, os,time, shutil
 import os.path
 import pdb
 db=0  
-#acctTxt= './out1/Accounts2020.txt'            names from topAcct1
+#acctTxt= './out2/Accounts2020.txt'            names from topAcct1
 #acctSort='./out1/Accounts2020_sorted.txt'     cashflow activity
 
 def proCash(xnam,acctTxt,acctSort):
@@ -114,13 +114,13 @@ def topcash(acctTxt,acctSort):
    g1.close()
    g2.close()
    for i in range(12,9,-1):
-      cashnam ='../st1/cashflow'+str(i)+'.csv'
+      cashnam ='./st1/cashflow'+str(i)+'.csv'
       if (db):
          print('     input file %s' %(cashnam))
       if os.path.isfile(cashnam):            
          proCash(cashnam,acctTxt,acctSort)
    for i in range(9,0,-1): 
-      cashnam ='../st1/cashflow0'+str(i)+'.csv'
+      cashnam ='./st1/cashflow0'+str(i)+'.csv'
       if (db):
          print('     input file %s' %(cashnam))        
       if os.path.isfile(cashnam):            
