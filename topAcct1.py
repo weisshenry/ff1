@@ -9,11 +9,13 @@ import pdb
 import cashFlow1
 import proces1
 import recon2
+import sortit1
 
 db=0 
 acctTxt= './out2/Accounts2020.txt'
 acctSort='./out1/Accounts2020_sorted.txt' 
 acctRecon='./out1/Reconciled.txt'  # reconciled
+acctReconSort='./out1/Reconciled_sort.txt'  # sorted
 
 def topproc(nam,nam1,acctTxt,acctSort):
    gx= open(acctTxt,'a')
@@ -53,9 +55,10 @@ if __name__ == "__main__":
    topproc('con','Construction',acctTxt,acctSort) 
    topproc('farm','Farm',acctTxt,acctSort)     
    print('  end part1, start recon') 
-   ret = recon2.recon1(acctSort,acctRecon)   
+   ret = recon2.recon1(acctSort,acctRecon)    
    if ret < 0:
       print('  error recon %d' %(ret))
+   sortit1.sortit1(acctRecon,acctReconSort) 
    sys.exit()  
  
 

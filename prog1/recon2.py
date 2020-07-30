@@ -32,7 +32,7 @@ def prntstk(stk,expTxt,expAnt):
                       stg = sss[0]  
                    except:
                       print('gotit')
-                      pdb.set_trace()                      
+                      #pdb.set_trace()                      
                    sth = stg.replace('"',' ')  
                    y = len(nnn)                   
                    linf =('%-10s %-50s %10s' %(mat[0],sth,nnn[y-1]))
