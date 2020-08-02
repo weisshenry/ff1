@@ -12,7 +12,7 @@ vb = False
 #acctSort='../out1/Reconciled_sort.txt'  # sorted
 
 def sortit1(acctReco,acctSort):
-   print('   Start - reconciled accounts')  
+   #print('   Sort - reconciled accounts')  
    #pdb.set_trace()
    gx = open(acctReco,'r')
    hx = open(acctSort,'w')

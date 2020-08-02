@@ -9,10 +9,11 @@ import pdb
 vb = False
 
 expCsv='./in1/expenses20.csv'
-expTxt='./in1/expenses20.txt'       #exact copy of expenses20.csv
+expTxt='./out2/expenses20.txt'       #exact copy of expenses20.csv
 expAnt='./out1/expenseAnnotated.txt' #annotated
 
 def prntstk(stk,expTxt,expAnt):
+   sm =0
    mx = open(expTxt,'r')
    px = open(expAnt,'w')
    linb = mx.readlines()  
@@ -31,12 +32,14 @@ def prntstk(stk,expTxt,expAnt):
                    try:
                       stg = sss[0]  
                    except:
-                      print('gotit')
+                      sm =sm+1
+                      #print(' ')
                       #pdb.set_trace()                      
                    sth = stg.replace('"',' ')  
                    y = len(nnn)                   
                    linf =('%-10s %-50s %10s' %(mat[0],sth,nnn[y-1]))
-                   # x1 = sth.find('Schroeder')
+                   #x1 = sth.find('Schroeder')
+                   x1 = sth.find('Kuhlman')
                    # if x1 > -1:
                       # print('gotit')
                       # pdb.set_trace()
@@ -83,7 +86,13 @@ def cleanit(expCsv,expTxt):
    gx.close()
    return lx
 
+# findit:  stk[] is a list of line numbers of 'Expenses paper trail' appended w/ 'a'
+#  1: input an 'amt' from the Accounts2020_sorted 
+#     (collation of bank statements, all account except cash)
+#  2: if amts are the same, 'got a potential hit'
+#  3: change stk[i] <= str(i)+'b'
 def findit(amt,dd,stk):
+   gotit=0
    #print(' start of findit %s' %(amt))      
    try:      
       fx = open(expTxt,'r') 
@@ -96,15 +105,21 @@ def findit(amt,dd,stk):
    for i in range(la):         
       lina = lines[i]
       lina = lina.rstrip()
-      x1 = lina.find(amt)          
-      if x1 > -1:               
+      x1 = lina.find(amt)           
+      if x1 > -1:                  
          match = re.findall('\d{2}/\d{2}/\d{2}', lina)        
-         dx = datetime.strptime(match[0],"%m/%d/%y")                         
-      if ((x1>-1) and (len(match)==1)):
-         #print('  got it ') 
+         dt = datetime.strptime(match[0],"%m/%d/%y")   
+         ds = str(dt)
+         dr = ds[0:9]         
+      #if ((x1>-1) and (len(match)==1)): 
+      if ((x1>-1) and (dd==dr)):
+         # if i==42:
+            # print('hi %s %s %s' %(amt,dd,dr))
+            # gotit = 1
+            # pdb.set_trace()      
          valx = str(i)+'a'
          s1 = stk.index(valx)
-         stk[s1]= str(i)+'b'         
+         stk[s1]= str(i)+'b'                     
          return 1, stk
    #print(' end of findit search')   
    return 0,stk
@@ -112,7 +127,7 @@ def findit(amt,dd,stk):
 #acctSort='../out1/Accounts2020_sorted.txt' 
 #acctRecon='../out1/Reconciled.txt'  # reconciled
 def recon1(acctSort,acctRecon):
-   print('   Start - reconciled accounts')  
+   print('   reconcile accounts')  
    #pdb.set_trace()
    hx = open(acctRecon,'w')
    hx.write('   Reconciled.txt  \n')
@@ -138,10 +153,12 @@ def recon1(acctSort,acctRecon):
       amt = amt[1:len(amt)]
       date=linb[0:8]      
       try:
-         dd = datetime.strptime(date,"%m/%d/%y")       
+         dd = datetime.strptime(date,"%m/%d/%y")  
+         dx = str(dd)
+         dy = dx[0:9]         
          famt = float(amt)       
          #print('  going to finditx')         
-         x,stk = findit(amt,dd,stk)
+         x,stk = findit(amt,dy,stk)
          ct = ct+1
          if x > 0:
             hx.write('.  %s\n' %(linb))
@@ -161,7 +178,7 @@ def recon1(acctSort,acctRecon):
       return -2
    else:      
       print('   Processed %d records' %(ct)) 
-   annotat1(expTxt)  # annotate expenses after they are processed   
+   annotat1(expTxt)  #          expenses after they are processed   
    annotat2(expAnt)  # annotate expenses after they are processed      
    return 0  
    

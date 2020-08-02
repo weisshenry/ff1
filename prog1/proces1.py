@@ -8,7 +8,7 @@ db=0
 #acctSort='./out1/Accounts2020_sorted.txt' 
 
 def proces(fx,acctTxt,acctSort):
-   print('   start file %s' %(fx))   
+   print('      %s' %(fx))   
    f1= open(fx,'r')
    g1 = open(acctTxt,'a')
    g2 = open(acctSort,'a')   

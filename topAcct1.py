@@ -12,9 +12,9 @@ import recon2
 import sortit1
 
 db=0 
-acctTxt= './out2/Accounts2020.txt'
-acctSort='./out1/Accounts2020_sorted.txt' 
-acctRecon='./out1/Reconciled.txt'  # reconciled
+acctTxt= './out2/BankAccts2020.txt'
+acctSort='./out1/BankAcct2020_sorted.txt' 
+acctRecon='./out2/Reconciled.txt'  # reconciled
 acctReconSort='./out1/Reconciled_sort.txt'  # sorted
 
 def topproc(nam,nam1,acctTxt,acctSort):
@@ -48,13 +48,14 @@ if __name__ == "__main__":
    gx= open(acctTxt,'w')
    gx.close()   
    gy= open(acctSort,'w')
+   gy.write('     Premier Bank Accounts:  2020  \n')
    gy.close()
    cashFlow1.topcash(acctTxt,acctSort)
-   topproc('guesth','Guesthouse',acctTxt,acctSort)
-   topproc('main','Mainhouse',acctTxt,acctSort)   
-   topproc('con','Construction',acctTxt,acctSort) 
-   topproc('farm','Farm',acctTxt,acctSort)     
-   print('  end part1, start recon') 
+   topproc('guesth','Guesthouse 9206',acctTxt,acctSort)
+   topproc('main','Mainhouse 0501',acctTxt,acctSort)   
+   topproc('con','Construction 0509',acctTxt,acctSort) 
+   topproc('farm','Farm 0584',acctTxt,acctSort)     
+   print('   end part1, start recon') 
    ret = recon2.recon1(acctSort,acctRecon)    
    if ret < 0:
       print('  error recon %d' %(ret))
