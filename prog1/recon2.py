@@ -27,7 +27,7 @@ def prntstk(stk,expTxt,expAnt):
       if mat is not None:                      
             sss = re.findall('\".*?\"',lind)           
             if sss is not None:                           
-               nnn =re.findall('\d*\.?\d+',lind)
+               nnn =re.findall('-?\d*\.?\d+',lind)
                if nnn is not None:
                    try:
                       stg = sss[0]  
@@ -39,19 +39,19 @@ def prntstk(stk,expTxt,expAnt):
                    y = len(nnn)                   
                    linf =('%-10s %-50s %10s' %(mat[0],sth,nnn[y-1]))
                    #x1 = sth.find('Schroeder')
-                   x1 = sth.find('Kuhlman')
-                   # if x1 > -1:
-                      # print('gotit')
-                      # pdb.set_trace()
+                   x1 = sth.find('Amazon cancelled')
+                   #if x1 > -1:
+                   #   print('gotit')
+                   #   pdb.set_trace()
                    #linf = mat[0]+'  '+stg+'  '+nnn[3]
                    if vb:
                       print('-->%s' %(linf))
       else:
          linf = lind      
       if x > -1:
-         px.write('   '+linf+'\n')
+         px.write('  '+linf+'\n')
       else: 
-         px.write('...'+linf+'\n')   
+         px.write('--'+linf+'\n')   
       #pdb.set_trace()
    px.close()          
    return
@@ -66,7 +66,22 @@ def loadstk(expTxt):
    for i in range(ln):
       val = str(i)+'a'
       stk.append(val)
-   return stk   
+   return stk 
+
+def checkExp(expTxt):
+   fx = open(expTxt,'r')
+   lines = fx.readlines()
+   fx.close()  
+   ln = len(lines)   
+   for i in range(ln):
+      lina = lines[i]
+      linb= lina.rstrip()    
+      itm = linb.split(' ')                
+      lx = len(itm)
+      if lx == 3:
+         print('   Fix line %d   %s in expenses.' %(i,linb))
+         sys.exit()            
+   return lx   
 
 def cleanit(expCsv,expTxt):
    #pdb.set_trace()
@@ -84,6 +99,7 @@ def cleanit(expCsv,expTxt):
    gx.write(datx)
    fx.close() 
    gx.close()
+   checkExp(expTxt)
    return lx
 
 # findit:  stk[] is a list of line numbers of 'Expenses paper trail' appended w/ 'a'
@@ -132,7 +148,7 @@ def recon1(acctSort,acctRecon):
    hx = open(acctRecon,'w')
    hx.write('   Reconciled.txt  \n')
    hx.write('All expenses on bank accounts should be on paper trail.\n')
-   hx.write('Step3: Any --> needs to be added to Expenses.csv (paper trail) \n\n')   
+   hx.write('Any --> needs to be added to Expenses.csv (paper trail) \n\n')   
    lxx = cleanit(expCsv,expTxt)
    if (lxx < 5):
        print(' Error: %s not found' %(expCsv))
@@ -158,7 +174,7 @@ def recon1(acctSort,acctRecon):
          dy = dx[0:9]         
          famt = float(amt)       
          #print('  going to finditx')         
-         x,stk = findit(amt,dy,stk)
+         x,stk = findit(amt,dy,stk)         
          ct = ct+1
          if x > 0:
             hx.write('.  %s\n' %(linb))
@@ -187,7 +203,7 @@ def annotat1(expTxt):
    lines = ax.readlines()
    ax.close() 
    bx = open(expTxt,'w')
-   bx.write('Step1: Check that this file is an exact copy of expenses.csv\n\n')
+   bx.write('Check that this file is an exact copy of expenses.csv\n\n')
    la = len(lines)     
    for i in range(la):         
       bx.write(lines[i])
@@ -200,8 +216,8 @@ def annotat2(expAnt):
    ax.close() 
    bx = open(expAnt,'w')
    bx.write('Expenses Annotated.txt  \n')
-   bx.write('Step2: This is list of all expenses from paper trail\n')
-   bx.write('       Any line with ... means this expense was also in bank statements. \n')
+   bx.write('       This is list of all expenses from paper trail\n')
+   bx.write('       Any line with -- means this expense was also in bank statements. \n')
    bx.write('       Check why any w/o a dot are only from our paper trail.\n')
    bx.write('       These expenses probably came from personal accounts. \n\n')
    la = len(lines)     
