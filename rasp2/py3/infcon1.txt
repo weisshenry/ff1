@@ -1,0 +1,35 @@
+Info on Raspi-config
+
+sudo raspi-config
+
+interfacing options
+advanced
+i2c  (enable)
+
+sudo i2cdetect -y 1
+0x40, 0x70
+
+sudo i2cdetect -y 0
+
+interfacing options
+advanced
+spi  (enable)
+
+ls -l /dev/spidev*
+(2 devs)
+
+
+----------------
+ls /dev/i2c*  /dev/spi*
+
+all 3
+
+dtoverlay=spi1-3cs
+
+ls /dev/spi*
+
+
+
+
+
+
