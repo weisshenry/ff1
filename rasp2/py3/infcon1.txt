@@ -1,32 +1,44 @@
 Info on Raspi-config
 
-sudo raspi-config
+8/21/20
+info on rasp2/py3
 
+these are rasp progs
+ac1.py 
+ac2.py   
+bl1.py   blinky info
+
+process on ubun
+p1.py    init accel to velocity
+p2.py    rotate to align
+ca1.txt  samples 
+
+----------------------
+sudo raspi-config
+----------------------
 interfacing options
 advanced
 i2c  (enable)
-
+---
 sudo i2cdetect -y 1
 0x40, 0x70
-
+---
 sudo i2cdetect -y 0
-
+---
 interfacing options
 advanced
 spi  (enable)
-
+---
 ls -l /dev/spidev*
 (2 devs)
-
-
 ----------------
 ls /dev/i2c*  /dev/spi*
-
+---
 all 3
-
+---
 dtoverlay=spi1-3cs
-
 ls /dev/spi*
+------------------------
 
 
 
