@@ -37,4 +37,8 @@ sudo lshw -c display
 sudo prime-select query 
 sudo prime-select nvidia (to select nvidia)
 -------------------
-
+---add ssh key ---
+ls -l ~/.ssh/id_*.pub
+ssh-keygen -t rsa -b 4096 -C "your_email@domain.com"
+ls ~/.ssh/id_*
+--------------------
