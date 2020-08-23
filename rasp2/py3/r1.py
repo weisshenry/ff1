@@ -1,12 +1,11 @@
-# process step1: parse the CSV file
-# looks like need to adjust orientation
+# r1 reprocss step 
+# input ba1.txt 
 import sys
 import numpy as np
 import scipy.integrate as it
 from pandas import read_csv
 import matplotlib.pyplot as plt
 import pdb
-
 
 if __name__ == "__main__":
    with open('ba1.txt') as fx:   

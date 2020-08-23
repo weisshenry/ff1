@@ -1,3 +1,6 @@
+# p3 process step of ac2 data
+# rotate to remove z azis accel from x,y
+# input ca1.txt   output ba1.txt
 import sys
 import numpy as np
 import scipy.integrate as it
@@ -58,8 +61,6 @@ if __name__ == "__main__":
    mm = rmv(aa,bc)
    cc = np.matmul(mm,np.transpose(aa)) 
    print(' %f %f %f ' %(cc[0],cc[1],cc[2]))
-   #pdb.set_trace()
-   #sys.exit()
    for i in range(lx):
       ee[i,:] = np.matmul(dd[i,:],mm)
       #ee[i,:] = np.matmul(mm,np.transpose(dd[i,:]))

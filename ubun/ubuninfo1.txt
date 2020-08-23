@@ -48,5 +48,8 @@ ls ~/.ssh/id_*
 set vi variables
 .vimrc   set number
 --------------------
+sudo apt-get update
+sudo apt-get upgrade
+---------------
 
 
