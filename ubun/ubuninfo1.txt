@@ -42,3 +42,11 @@ ls -l ~/.ssh/id_*.pub
 ssh-keygen -t rsa -b 4096 -C "your_email@domain.com"
 ls ~/.ssh/id_*
 --------------------
+----- PS1 variables ----
+\u user \h host \w fullpath
+---
+set vi variables
+.vimrc   set number
+--------------------
+
+
