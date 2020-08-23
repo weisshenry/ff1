@@ -1,0 +1,40 @@
+ubun install
+
+
+step1
+----------------
+sudo add-apt-repository ppa:graphics-drivers/ppa
+(added by ubuntu team)
+sudo ubuntu-drivers devices  (list )
+sudo ubuntu-drivers autoinstall (gets latest)
+--------------
+step2
+------------
+sudo apt-get update
+sudo apt-get -y install cuda
+sudo apt instal nvidia-cuda-toolkit
+-----------
+step3
+--------------
+install latest anaconda3
+--- get ssh working---
+sudo apt install openssh-server
+sudo systemctl status ssh
+sudo ufw allow ssh
+------------
+check out--
+nvidia-smi
+nvcc -V
+-----------
+step4
+-----------
+adding conda env
+get cudnn
+cat /usr/include/cudnn.h | grep CUDNNN_MAJOR -A 2
+check on:
+sudo lshw - c video
+sudo lshw -c display
+sudo prime-select query 
+sudo prime-select nvidia (to select nvidia)
+-------------------
+

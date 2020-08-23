@@ -9,7 +9,7 @@ import pdb
 
 
 if __name__ == "__main__":
-   with open('ca1.txt') as fx:   
+   with open('ba1.txt') as fx:   
       linex = fx.readlines()  
    lx = len(linex)
    n = np.zeros([lx],dtype='float')
