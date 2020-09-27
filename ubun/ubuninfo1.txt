@@ -1,5 +1,10 @@
 ubun install
 
+---09/27/20---
+sudo systemctl set-default graphical
+sudo systemctl set-default multi-user
+sudo systemctl start gdm3
+
 
 step1
 ----------------
