@@ -1,11 +1,14 @@
 ubun install
 
+<<<<<<< HEAD
 ---09/27/20---
 sudo systemctl set-default graphical
 sudo systemctl set-default multi-user
 sudo systemctl start gdm3
 
 
+=======
+>>>>>>> 936d642905966fbeeca33e9b3c08810ec8e766fe
 step1
 ----------------
 sudo add-apt-repository ppa:graphics-drivers/ppa
@@ -56,5 +59,11 @@ set vi variables
 sudo apt-get update
 sudo apt-get upgrade
 ---------------
+---- set up USB ---
+sudo fdisk -l
+sudo mount /dev/sdb1 /mnt/usb1
+try umount
+-------------------
+
 
 
