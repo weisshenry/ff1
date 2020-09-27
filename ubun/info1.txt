@@ -1,0 +1,30 @@
+Info for ubuntu
+
+---0/19---
+wfiltinfo('coif5')
+
+---09/16---
+sudo apt install *.deb
+sdk install gradle 5.0
+sdk install gradle 4.10.3
+sdk list gradle      (lists versions)
+./gradlew --version
+------------ ssh ----------------------
+lsb_release -a   <-- ubuntu version
+ping 192.168.1.7  OK on windows
+sudo systemctl stop ssh
+sudo systemctl start ssh
+
+------ octave info -------------------
+daubechies wavelets, etc
+
+octave
+pkg load ltfat
+ltfatstart
+wname='db4'
+plot the wavelet, scaling function (if available)
+[phi,psi,xval]= wavfun('db4', 10)
+plot(xval,phi)  scaling
+plot(xval,psi)  wavelet
+-----------------------------------
+

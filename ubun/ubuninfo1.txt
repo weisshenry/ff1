@@ -1,6 +1,5 @@
 ubun install
 
-
 step1
 ----------------
 sudo add-apt-repository ppa:graphics-drivers/ppa
@@ -51,5 +50,11 @@ set vi variables
 sudo apt-get update
 sudo apt-get upgrade
 ---------------
+---- set up USB ---
+sudo fdisk -l
+sudo mount /dev/sdb1 /mnt/usb1
+try umount
+-------------------
+
 
 
