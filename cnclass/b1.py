@@ -11,7 +11,6 @@ import random, time
 gpu_devices = tf.config.experimental.list_physical_devices('GPU')
 for device in gpu_devices:
     tf.config.experimental.set_memory_growth(device, True)
-
 #config = tf.ConfigProto()
 #config.gpu_options.allow_growth=True
 #sess = tf.Session(config=config)
@@ -32,14 +31,11 @@ for img in xtest:
    noitest.append(nimg)
 noitest= np.array(noitest)
 #------some visualization scripts------------
-#plt.imshow(xtran[0],cmap='gray')
-#xtran.shape     # = (60000,28,28)
-#xtest.shape      
-#ytran.shape     # =(60000,)
-#--------------------------------
-# i = random.randint(1,60000)
-# label = ytran[i]
-# plt.imshow(xtran[i],cmap = 'gray')
+#xtran.shape # = (60000,28,28) #xtest.shape #ytran.shape     # =(60000,)
+plt.ion() ;plt.show()
+i = random.randint(1,60000)
+label = ytran[i]
+plt.imshow(xtran[i],cmap = 'gray')
 #-------------------------------------
 autoenc = tf.keras.models.Sequential()
 #----encoder ---
@@ -57,27 +53,28 @@ autoenc.fit(noitran.reshape(-1,28,28,1), xtran.reshape(-1,28,28,1),
      epochs = 10,  batch_size = 200,
      validation_data = (noitest.reshape(-1,28,28,1),xtest.reshape(-1,28,28,1)))
 #-------------visualization of trained data ----------------------    
-# lgrid= 15; wgrid=15
-# fig,axes = plt.subplots(lgrid,wgrid, figsize=(17,17))
-# axes = axes.ravel()
-# ntrain = len(xtran)
-# for i in np.arange(o, wgrid*lgrid):
-   # index = np.random.randint(0,ntrain)
-   # axes[i].imshow(xtran[index])
-   # axes[i].set_title(ytran[index],fontsize=8)
-   # axes[i].axis('off')
+lgrid= 5; wgrid=5
+fig,axes = plt.subplots(lgrid,wgrid, figsize=(7,7))
+axes = axes.ravel()
+ntrain = len(xtran)
+for i in np.arange(0, wgrid*lgrid):
+   index = np.random.randint(0,ntrain)
+   axes[i].imshow(xtran[index])
+   axes[i].set_title(ytran[index],fontsize=8)
+   axes[i].axis('off')
 #--------------evaluation of test data ---------------
-evaluation = autoencoder.evaluate(noitest.reshape(-1,28,28,1),xtest.reshape(-1,28,28,1))
-print("Test accuracy : {:.3f}'.format(evaluation))
+evaluation = autoenc.evaluate(noitest.reshape(-1,28,28,1),xtest.reshape(-1,28,28,1))
+print('Test accuracy : {:.3f}'.format(evaluation))
 #   should be about(about 0.299) 
 #-------------test data prediction ------------------
-predicted = autoencorder.predict(noitest[:10].reshape(-1,28,28,1))   
-fig,axes = plt.subplots(nrows=2,ncols=10,sharex=True, sharey=True, figsize(20,4))
+predicted = autoenc.predict(noitest[:10].reshape(-1,28,28,1))   
+fig,axes = plt.subplots(nrows=2,ncols=10,sharex=True, sharey=True, figsize=(20,4))
 for images, row in zip([noitest[:10],predicted],axes):
    for img, ax in zip(images, row):
       ax.imshow(img.reshape((28,28)),cmap='Greys_r')
-	  ax.get_xaxis().set_visible(False)
-	  ax.get_yaxis().set_visible(False)
+      ax.get_xaxis().set_visible(False)
+      ax.get_yaxis().set_visible(False)
+input('b')      
 #--------------------------------------     
 
      

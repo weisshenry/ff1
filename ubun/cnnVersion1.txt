@@ -1,10 +1,18 @@
 Info for ubuntu for cnn
+10/1/20 HWeiss
 
-
-----versons---------------
-
-
-home ubuntu
+----versions---------------
+--- home ubuntu 20.04 
+tf           2.2.0
+pandas       1.1.1
+numpy        1.19.1
+matplotlib   3.3.1
+cudnn        7.6.5
+cudatoolkit  10.1.243
+driver       450.66 ; cuda 11.0
+geForce RTX 2060
+mem  32 gig
+----home ubuntu 18.04----
           RS       ME
 tf       2.1      2.2.0
 opencv   3.4.4    4.2.0
@@ -12,9 +20,7 @@ numpy    1.18.1   1.18.1
 pandas   1.0.3    1.0.1
 keras-pre  1.1.0
 keas-app   1.0.8
-
- 
-
+-----------------------------
 
 /dncnn-keras  RS
    python 2.7, explicit keras

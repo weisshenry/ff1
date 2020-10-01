@@ -40,6 +40,7 @@ sudo lshw -c display
 sudo prime-select query 
 sudo prime-select nvidia (to select nvidia)
 ----------------system info-------------------------
+memory: free -h  ; df -h  32Gigs, 500 Gigs
 ---add ssh key ---
 ls -l ~/.ssh/id_*.pub
 ssh-keygen -t rsa -b 4096 -C "your_email@domain.com"
@@ -68,7 +69,22 @@ sudo shutdonw -r now
 sudo lshw -c display
 prime-select querty  <-- show current card
 sudo prime-select nvidia (or intel)
----------------------------------------
+     even older info on installation issues -------------
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
+sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
+sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+sudo add-apt-repository "deb http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/ /"
+--------
+sudo apt-get update
+sudo apt-get -y install cuda
+export PATH=/usr/local/cuda/bin:$PATH  
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+nvcc -V   <-- check cuda compiler version
+sudo dpkg -i libcudnn7_7.6.5.32-1+cuda10.2_amd64.deb
+sudo dpkg -i libcudnn7-dev_7.6.5.32-1+cuda10.2_amd64.deb
+sudo dpkg -i libcudnn7-doc_7.6.5.32-1+cuda10.2_amd64.deb
+------------------------------------------------------------
+
 
 
 
