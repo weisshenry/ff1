@@ -1,29 +1,26 @@
-ubun install
+---- ubuntu installation -----------------
+10/1/20 HWeiss
 
-<<<<<<< HEAD
----09/27/20---
+----------conda create, install ------------------
+conda create --name=my36 python=3.6 anaconda
+conda install tensorflow-gpu=2.1.0
+conda install -c conda-forge opencv=3.4.4
+cat /usr/include/cudnn.h  | grep CUDNN_MAJOR -A 2
+--------------------------------------------------
 sudo systemctl set-default graphical
 sudo systemctl set-default multi-user
 sudo systemctl start gdm3
-
-
-=======
->>>>>>> 936d642905966fbeeca33e9b3c08810ec8e766fe
-step1
-----------------
+----------------------------------
+---step1--------------
 sudo add-apt-repository ppa:graphics-drivers/ppa
 (added by ubuntu team)
 sudo ubuntu-drivers devices  (list )
 sudo ubuntu-drivers autoinstall (gets latest)
---------------
-step2
-------------
+----step2------------
 sudo apt-get update
 sudo apt-get -y install cuda
 sudo apt instal nvidia-cuda-toolkit
------------
-step3
---------------
+----step3--------------
 install latest anaconda3
 --- get ssh working---
 sudo apt install openssh-server
@@ -33,27 +30,24 @@ sudo ufw allow ssh
 check out--
 nvidia-smi
 nvcc -V
------------
-step4
------------
-adding conda env
-get cudnn
+----step4-----------
+--- adding cudnn --
+from website
 cat /usr/include/cudnn.h | grep CUDNNN_MAJOR -A 2
 check on:
 sudo lshw - c video
 sudo lshw -c display
 sudo prime-select query 
 sudo prime-select nvidia (to select nvidia)
--------------------
+----------------system info-------------------------
 ---add ssh key ---
 ls -l ~/.ssh/id_*.pub
 ssh-keygen -t rsa -b 4096 -C "your_email@domain.com"
 ls ~/.ssh/id_*
 --------------------
------ PS1 variables ----
-\u user \h host \w fullpath
----
-set vi variables
+----- PS1 variables (prompt variable) ----
+set in .bashrc   \u user \h host \w fullpath
+------ set vi variables -----
 .vimrc   set number
 --------------------
 sudo apt-get update
@@ -63,7 +57,20 @@ sudo apt-get upgrade
 sudo fdisk -l
 sudo mount /dev/sdb1 /mnt/usb1
 try umount
--------------------
+-------------nvidia driver--------
+      old way, use ppa above
+sudo lshw -c video
+sudo lshw -c display
+sudo ubuntu-drivers devices   <-- list avail drivers
+sudo ubuntu-drivers autoinstall
+sudo apt install nvidia-driver-430
+sudo shutdonw -r now
+sudo lshw -c display
+prime-select querty  <-- show current card
+sudo prime-select nvidia (or intel)
+---------------------------------------
+
+
 
 
 
