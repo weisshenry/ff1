@@ -3,7 +3,8 @@ import os, time, sys
 
 
 if __name__ == '__main__':
-  print('  start ');
+  print('  start ')
+  time.sleep(15)
   os.system('./t1.sh')
   tx = open('./out1.txt','r')
   line1 = tx.readline()
