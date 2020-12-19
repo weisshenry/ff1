@@ -27,7 +27,8 @@ def proCash(xnam,acctTxt,acctSort):
          b2 = itm[2].find('AUTO TRANSFER DP-LS') 
          b3 = itm[2].find('POS PURCHASE') 
          b4 = itm[2].find('BILL PAYMENT')   
-         b5 = itm[2].find('WITHDRAWAL')         
+         b5 = itm[2].find('WITHDRAWAL') 
+         b6 = itm[2].find('PREAUTHORIZED WD')          
          if b1 > -1:
             itm[2] = itm[2].replace('INTERNET/PHONE TRSFR','INTERNET')
          elif b2 > -1:
@@ -37,7 +38,10 @@ def proCash(xnam,acctTxt,acctSort):
          elif b4 > -1:
             itm[2] = itm[2].replace('BILL PAYMENT','BILL PAY')
          elif b5 > -1:
-            itm[2] = itm[2].replace('WITHDRAWAL','WITHDRWL')
+            itm[2] = itm[2].replace('WITHDRAWAL','WITHDRWL')           
+         elif b6 > -1:
+            itm[2] = itm[2].replace('PREAUTHORIZED WD','PREAUTH_WD') 
+            #pdb.set_trace()            
          itm[2] = itm[2].ljust(10)
          #--check itm[3] if blank then a 'deposit'
          try:

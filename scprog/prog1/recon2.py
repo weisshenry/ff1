@@ -218,7 +218,7 @@ def annotat2(expAnt):
    bx.write('Expenses Annotated.txt  \n')
    bx.write('       This is list of all expenses from paper trail\n')
    bx.write('       Any line with -- means this expense was also in bank statements. \n')
-   bx.write('       Check why any w/o a dot are only from our paper trail.\n')
+   bx.write('       Check why any w/o a -- are only from our paper trail.\n')
    bx.write('       These expenses probably came from personal accounts. \n\n')
    la = len(lines)     
    for i in range(la):         
