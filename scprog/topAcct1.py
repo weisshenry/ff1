@@ -10,6 +10,7 @@ import cashFlow1
 import proces1
 import recon2
 import sortit1
+import conv1
 
 db=0 
 acctTxt= './out2/BankAccts2020.txt'
@@ -41,6 +42,7 @@ def topproc(nam,nam1,acctTxt,acctSort):
 
 if __name__ == "__main__":
    print(' start')
+   conv1.conv1()
    if not os.path.exists('out1'):
       os.mkdir('out1')   
    if not os.path.exists('out2'):

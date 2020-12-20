@@ -20,7 +20,7 @@ def proCash(xnam,acctTxt,acctSort):
       itm = linb.split(',')     
       lx = len(itm)
       #for i in range(lx):
-      #   print(' %d %s ' %(i,itm[i]))
+      #   print(' %d %s ' %(i,itm[i]))    pdb.set_trace()
       if lx > 3:
          # prcess item 2        
          b1 = itm[2].find('INTERNET/PHONE TRSFR')

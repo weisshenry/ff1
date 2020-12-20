@@ -78,8 +78,9 @@ def checkExp(expTxt):
       linb= lina.rstrip()    
       itm = linb.split(' ')                
       lx = len(itm)
-      if lx == 3:
+      if ((lx == 3) and (itm[0][0] != '"')):
          print('   Fix line %d   %s in expenses.' %(i,linb))
+         pdb.set_trace()
          sys.exit()            
    return lx   
 
@@ -167,7 +168,8 @@ def recon1(acctSort,acctRecon):
       amt = amt.rstrip()
       amt = amt.lstrip()
       amt = amt[1:len(amt)]
-      date=linb[0:8]      
+      date=linb[0:8] 
+      #pdb.set_trace()      
       try:
          dd = datetime.strptime(date,"%m/%d/%y")  
          dx = str(dd)
