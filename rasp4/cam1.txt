@@ -1,0 +1,60 @@
+Automatic camera display from IPCAM to 
+raspberry pi
+
+12/24/20
+
+In .bashrc, last command:
+
+------python r1.py---------
+
+This will:
+A Call to bash script:  ----t1.sh----
+  This runs nmap, and create out1.txt
+  A file with one line, (14 is current address):
+
+   Nmap scan report for IPCAM (192.168.1.14)
+   
+B Next step read file out1.txt, and capture the
+  ip address as a variable.
+
+C This ipaddress, variable is then passed to 
+  to another shell script: ----ip3.sh----
+
+------ r1.py -----
+import os, time,sys
+
+if __name__ == '__main__':
+  print('  start ');
+  time.sleep(15)
+  os.system('./t1.sh')
+  tx = open('./out1.txt','r')
+  line1 = tx.readline()
+  x = len(line1)
+  print(line1)
+  print('its %s ' %(line1[38:x-2]))
+  cmd = './ip3.sh  '+line1[38:x-2]
+  os.system(cmd)
+  print('   end')
+  sys.exit()
+
+-----------t1.sh ---------------------
+  
+#!/bin/bash
+nmap -sP 192.168.1.* | grep IPCAM > out1.txt
+echo "end"
+
+-------------- ip3.sh -----------------
+# find PID
+omxplayer -b rtsp://192.168.1.$1:554/10
+while true
+   do
+      PID=$(ps ax | grep omxplayer.bi[n] | cut -d ' ' -f2)
+      if [$PID]
+      then
+         sleep 30
+      else
+         omxplayer -b rtsp://192.168.1.$1:554/11
+         sleep 30
+      fi
+   done
+---------------------------------------
