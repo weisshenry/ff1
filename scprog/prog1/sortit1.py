@@ -23,7 +23,7 @@ def sortit1(acctReco,acctSort):
    linesb =[]
    for i in range(3,la):
       linesb.append(linesa[i])
-   linesb = sorted(linesb, key=lambda x: x[4:12])   
+   linesb = sorted(linesb, key=lambda x: x[3:12])   
    #linesb.sort()   
    for i in range(3):
       hx.write(linesa[i])          

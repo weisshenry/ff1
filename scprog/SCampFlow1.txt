@@ -74,6 +74,12 @@ step3: call prnstk
 	   
 -------part 3 -------------------
 sortit1.sortit1	  sorts the Reconciled list (computer list)
+
+-----------Premier Bank web site ----------------
+	1 All
+	2 Transactions
+	3 Download
+-------------------------------------------------	
 	   
 	   
 	   
