@@ -37,8 +37,16 @@ def conv1():
          www[7] = xxx[3]         
          yyy = "".join(www)
          yyy = yyy[:-2]   # delete last 2 chars
+     
+      if   (len(ttt[i]) ==3):   
+         g1.write('%s "%s" %5.2f \n' %(yyy,uuu[1],float(uuu[2]))) 
+         #pdb.set_trace()         
+      elif (len(ttt[i]) ==4):   
+         g1.write('%s "%s" %5.2f "%s" \n' %(yyy,uuu[1],float(uuu[2]),uuu[3]))
+         #pdb.set_trace()         
+      elif (len(ttt[i]) > 4):   
+         g1.write('%s "%s" %5.2f "%s" "%s" \n' %(yyy,uuu[1],float(uuu[2]),uuu[3],uuu[4]))   
          #pdb.set_trace()
-         g1.write('%s "%s" %5.2f \n' %(yyy,uuu[1],float(uuu[2])))         
    g1.close()
    return 
  

@@ -2,7 +2,6 @@
 1  expenses20.ods    This is the master 'paper trail'
    Update this with all the new expenses
    phone, electric not on Premier(First Fed)
-1A Save expenses20.ods as CSV, string del ", field del - none  
 2  travel is in  HouseLLC/tax20 folder 
    expenses should not be in HouseLLC, but 
    in the latest python folder  
@@ -14,6 +13,7 @@
    BankAcct_sorted.txt       <-- scan for any issues, just a sorted
                                  list of the monthly bank statments 
    expensesAnnotated         <-- check for any w/o "--", not in bank statements
+                                 'paper trail' annotated
    Reconciled sorted         <-- Any with '-->' needs to be added to paper trail
                                  which is expenses20.ods, and rerun program
 ---------------------------------------------------------------------------	
@@ -29,6 +29,7 @@ sortit1.sortit
 -----------------------------------------
 
 1 topAcc1.py
+--> conv1: convert LibreOffice to expenses20.csv
 --> input: csv files from Premier bank
              cashFlow
 	         guestHouse
@@ -71,7 +72,10 @@ step3: call prnstk
        input:  expenses.txt
        output: expensesAnnotated.txt
 	   if a, only in print, b found on computer file
-	   
+	   Update prnstk to keep comments in:
+            expenses20.ods ---> expenses20.csv          conv1
+			expenses20.csv ---> expenses20.txt          recon1
+	        expenses20.txt ---> expenseAnnotated.txt    prnstk
 -------part 3 -------------------
 sortit1.sortit1	  sorts the Reconciled list (computer list)
 

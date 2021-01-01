@@ -4,58 +4,14 @@ from datetime import datetime
 import numpy as np
 from dateutil import parser
 import re
+import prntstk1
 #import pudb
 import pdb
 vb = False
 
 expCsv='./in1/expenses20.csv'
 expTxt='./out2/expenses20.txt'       #exact copy of expenses20.csv
-expAnt='./out1/expenseAnnotated.txt' #annotated
-
-def prntstk(stk,expTxt,expAnt):
-   sm =0
-   mx = open(expTxt,'r')
-   px = open(expAnt,'w')
-   linb = mx.readlines()  
-   mx.close()
-   for i in range(len(linb )):
-      k = stk[i]
-      x = k.find('a')
-      linc = linb[i]
-      lind = linc.rstrip()      
-      mat=re.match('\d{2}[/]\d{2}[/]\d{2}', lind) 
-      if mat is not None:                      
-            sss = re.findall('\".*?\"',lind)           
-            if sss is not None:                           
-               nnn =re.findall('-?\d*\.?\d+',lind)
-               if nnn is not None:
-                   try:
-                      stg = sss[0]  
-                   except:
-                      sm =sm+1
-                      #print(' ')
-                      #pdb.set_trace()                      
-                   sth = stg.replace('"',' ')  
-                   y = len(nnn)                   
-                   linf =('%-10s %-50s %10s' %(mat[0],sth,nnn[y-1]))
-                   #x1 = sth.find('Schroeder')
-                   x1 = sth.find('Amazon cancelled')
-                   #if x1 > -1:
-                   #   print('gotit')
-                   #   pdb.set_trace()
-                   #linf = mat[0]+'  '+stg+'  '+nnn[3]
-                   if vb:
-                      print('-->%s' %(linf))
-      else:
-         linf = lind      
-      if x > -1:
-         px.write('  '+linf+'\n')
-      else: 
-         px.write('--'+linf+'\n')   
-      #pdb.set_trace()
-   px.close()          
-   return
-   
+expAnt='./out1/expenseAnnotated.txt' #annotated   
 
 def loadstk(expTxt):
    jx = open(expTxt,'r')
@@ -190,7 +146,7 @@ def recon1(acctSort,acctRecon):
          break      
    hx.close()        
    gx.close()
-   prntstk(stk,expTxt,expAnt)
+   prntstk1.prntstk(stk,expTxt,expAnt)
    if errx==1: 
       print('  Error processing records %s ' %(expTxt))  
       return -2
