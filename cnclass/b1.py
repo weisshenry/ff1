@@ -50,7 +50,7 @@ autoenc.compile(loss='binary_crossentropy',optimizer=tf.keras.optimizers.Adam(lr
 autoenc.summary()
 #------------------train ------------------------
 autoenc.fit(noitran.reshape(-1,28,28,1), xtran.reshape(-1,28,28,1),
-     epochs = 10,  batch_size = 200,
+     epochs = 10,  batch_size = 6000,
      validation_data = (noitest.reshape(-1,28,28,1),xtest.reshape(-1,28,28,1)))
 #-------------visualization of trained data ----------------------    
 lgrid= 5; wgrid=5
