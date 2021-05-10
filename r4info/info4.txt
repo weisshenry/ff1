@@ -3,6 +3,7 @@ Info raspberry pi 4
 du -sh
 free
 sudo aplay /usr/share/sounds/alsa/Noise.wav
+<<<<<<< HEAD
 ------------------------------------
 sudo apt-get install kodi-pvr-hts  
 (for the tvheadend client called htsp client)
@@ -10,14 +11,27 @@ hostname -I
 -------------------------------
 http://192.168.1.11:9981
 -------------------------------
+=======
+---------------------------------------
+sudo apt-get install kodi-pvr-hts  
+(for the tvheadend client called htsp client)
+-----------------------------
+hostname -I
+http://192.168.1.11:9981
+-------------------------
+>>>>>>> 62341c0cd79057ec5dfd8a34653b8581de1b9f2d
 tvheadend   (ran this first)
 Then tried http, username, password
-
 sudo apt-get purge tvheadend
 sudp apt-get install tvheadend
-
+-----------------------------------
+sudo apt update
+sudp apt install snapd  
+sudo reboot
+sudo snap install tvheadend
+---------------------------
 raspi-config
-------------------------sudo 
+------------------------ 
 mkdir -p  /var/log/journal
 systemd-tmpfiles --create --prefix /var/log/journal
 journalctl --rotate
@@ -34,8 +48,7 @@ http://localhost:8866/index.html
 admin password
 ------------------------------------
  Ubuntu ---
- Install tvheadend
- 
+ Install tvheadend 
  sudo add-apt-repository 'deb https://apt.tvheadend.org/stable bionic main'
  
  sudo apt update

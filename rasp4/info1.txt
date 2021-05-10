@@ -1,0 +1,25 @@
+2/18/21 HWeiss
+
+bashrc calls r1.py
+
+r1.py performs a nmap scan by calling t1.sh
+
+t1.sh dumps scan results into out1.txt
+
+Then r1.py, after a slight delay for file io to
+complete, reads in out1.txt, converts to lines
+and looks for IPCAM
+
+parse the IPCAM line, for its ip addr
+
+Constructs a cmd to issue to ip3.sh with input parm
+which is the IP address of IP cam.
+
+bashrc calls r1.py
+  r1.py
+       calls t1.sh
+       create out1.txt
+  parse  out1.txt for Ipaddr
+       calls ip3.sh ipAddr
+
+
