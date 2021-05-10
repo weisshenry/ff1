@@ -1,20 +1,13 @@
 ---- ubuntu installation -----------------
-
-
-java issues running gradle:
-
-sudo update-alternatives --config java
+java issues running gradle:   
+ sudo update-alternatives --config java
 had to set paths:
-export JAVA_HOME=/usr/lib/jvm/java-8--/jre/bin"
-gradlew --gradle-version 4.4.1
-gradlew --gradle-iser-home ./gradle
-sudo apt-get install openjdk-8-jdk
-
-
+ export JAVA_HOME=/usr/lib/jvm/java-8--/jre/bin"
+ gradlew --gradle-version 4.4.1
+ gradlew --gradle-iser-home ./gradle
+ sudo apt-get install openjdk-8-jdk
 --------- conda create gpu ---------
-
 pip install opencv-python  for python 3
-
 10/1/20 HWeiss
 ----------conda create, install ------------------
 conda create --name=my36 python=3.6 anaconda
