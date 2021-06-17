@@ -9,8 +9,8 @@ import prntstk1
 import pdb
 vb = False
 
-expCsv='./in1/expenses20.csv'
-expTxt='./out2/expenses20.txt'       #exact copy of expenses20.csv
+expCsv='./in1/expenses21.csv'
+expTxt='./out2/expenses21.txt'       #exact copy of expenses20.csv
 expAnt='./out1/expenseAnnotated.txt' #annotated   
 
 def loadstk(expTxt):
@@ -79,17 +79,12 @@ def findit(amt,dd,stk):
       lina = lines[i]
       lina = lina.rstrip()
       x1 = lina.find(amt)           
-      if x1 > -1:                  
+      if x1 > -1:   
+         #pdb.set_trace()      
          match = re.findall('\d{2}/\d{2}/\d{2}', lina)        
-         dt = datetime.strptime(match[0],"%m/%d/%y")   
-         ds = str(dt)
-         dr = ds[0:9]         
-      #if ((x1>-1) and (len(match)==1)): 
-      if ((x1>-1) and (dd==dr)):
-         # if i==42:
-            # print('hi %s %s %s' %(amt,dd,dr))
-            # gotit = 1
-            # pdb.set_trace()      
+         dr = match[0]         
+         pdb.set_trace()       
+      if ((x1>-1) and (dd==dr)):               
          valx = str(i)+'a'
          s1 = stk.index(valx)
          stk[s1]= str(i)+'b'                     
@@ -120,18 +115,17 @@ def recon1(acctSort,acctRecon):
    for i in range(lx):
       lina = lines[i]
       linb = lina.rstrip() 
+      #print('%s' %(linb))
+      xxx = linb.find('BRICK')      
       amt = linb[21:31]
       amt = amt.rstrip()
       amt = amt.lstrip()
       amt = amt[1:len(amt)]
-      date=linb[0:8] 
-      #pdb.set_trace()      
-      try:
-         dd = datetime.strptime(date,"%m/%d/%y")  
-         dx = str(dd)
-         dy = dx[0:9]         
-         famt = float(amt)       
-         #print('  going to finditx')         
+      date=linb[0:10]  # 0:8  <--                
+      try:       
+         dd = str(date)         
+         dy = dd[0:6] +dd[8:10]        
+         famt = float(amt)                        
          x,stk = findit(amt,dy,stk)         
          ct = ct+1
          if x > 0:

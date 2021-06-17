@@ -13,8 +13,9 @@ import sortit1
 import conv1
 
 db=0 
-acctTxt= './out2/BankAccts2020.txt'
-acctSort='./out1/BankAcct2020_sorted.txt' 
+banktop = './st1/'                # bank csv files
+acctTxt= './out2/BankAccts2021.txt'
+acctSort='./out1/BankAcct2021_sorted.txt' 
 acctRecon='./out2/Reconciled.txt'  # reconciled
 acctReconSort='./out1/Reconciled_sort.txt'  # sorted
 
@@ -26,13 +27,13 @@ def topproc(nam,nam1,acctTxt,acctSort):
    gy.write('\n              '+nam1+' Account Activity 2020 shortform \n\n')
    gy.close()
    for i in range(12,9,-1):
-      xnam ='./st1/'+nam+str(i)+'.csv'
+      xnam =banktop+nam+str(i)+'.csv'
       if (db):
          print('     input file %s' %(xnam))
       if os.path.isfile(xnam):            
          proces1.proces(xnam,acctTxt,acctSort)
    for i in range(9,0,-1): 
-      xnam ='./st1/'+nam+'0'+str(i)+'.csv'
+      xnam =banktop+nam+'0'+str(i)+'.csv'
       if (db):
          print('     input file %s' %(xnam))
       if os.path.isfile(xnam):            
@@ -50,7 +51,7 @@ if __name__ == "__main__":
    gx= open(acctTxt,'w')
    gx.close()   
    gy= open(acctSort,'w')
-   gy.write('     Premier Bank Accounts:  2020  \n')
+   gy.write('     Premier Bank Accounts:  2021  \n')
    gy.close()
    cashFlow1.topcash(acctTxt,acctSort)
    topproc('guesth','Guesthouse 9206',acctTxt,acctSort)

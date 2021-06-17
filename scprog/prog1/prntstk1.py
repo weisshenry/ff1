@@ -8,8 +8,8 @@ import re
 import pdb
 vb = False
 
-expCsv='./in1/expenses20.csv'
-expTxt='./out2/expenses20.txt'       #exact copy of expenses20.csv
+expCsv='./in1/expenses21.csv'
+expTxt='./out2/expenses21.txt'       #exact copy of expenses20.csv
 expAnt='./out1/expenseAnnotated.txt' #annotated
 
 def prntstk(stk,expTxt,expAnt):
