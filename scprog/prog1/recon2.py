@@ -83,7 +83,7 @@ def findit(amt,dd,stk):
          #pdb.set_trace()      
          match = re.findall('\d{2}/\d{2}/\d{2}', lina)        
          dr = match[0]         
-         pdb.set_trace()       
+         #pdb.set_trace()       
       if ((x1>-1) and (dd==dr)):               
          valx = str(i)+'a'
          s1 = stk.index(valx)

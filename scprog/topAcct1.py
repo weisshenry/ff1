@@ -42,8 +42,8 @@ def topproc(nam,nam1,acctTxt,acctSort):
    return   
 
 if __name__ == "__main__":
-   print(' start')
-   conv1.conv1()
+   print(' start')  
+   conv1.conv1()   
    if not os.path.exists('out1'):
       os.mkdir('out1')   
    if not os.path.exists('out2'):
@@ -52,8 +52,8 @@ if __name__ == "__main__":
    gx.close()   
    gy= open(acctSort,'w')
    gy.write('     Premier Bank Accounts:  2021  \n')
-   gy.close()
-   cashFlow1.topcash(acctTxt,acctSort)
+   gy.close()  
+   cashFlow1.topcash(acctTxt,acctSort)  
    topproc('guesth','Guesthouse 9206',acctTxt,acctSort)
    topproc('main','Mainhouse 0501',acctTxt,acctSort)   
    topproc('con','Construction 0509',acctTxt,acctSort) 

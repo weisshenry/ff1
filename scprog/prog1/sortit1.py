@@ -32,9 +32,4 @@ def sortit1(acctReco,acctSort):
    hx.close()  
    return 0  
    
-# if __name__ == "__main__":
-   # print(' start')
-   # recon1(acctReco,acctSort)
-   # print(' end')
-   # sys.exit()
 

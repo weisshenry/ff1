@@ -7,7 +7,7 @@ import csv
 import pyexcel_ods as pe
 import pdb
 
-DG = 1
+DG = 0
 acctOds= './in1/expenses21.ods'
 acctCsv= './in1/expenses21.csv'
 
