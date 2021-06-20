@@ -11,11 +11,12 @@ db=0
 banktop = './st1/'                # bank csv files
 acctTxt= './out1/CashAcct21.txt'
 exptTxt= './out1/CashExpt21.txt'
+allCash= './out1/CashAll_21.txt'
 
-def proces2(fx):
+def proces0(fx,gx):
    print('      %s' %(fx))   
    f1= open(fx,'r')
-   g1 = open(acctTxt,'a')    
+   g1 = open(gx,'a')    
    g2 = open(exptTxt,'a')  
    f1lines = f1.readlines()
    for lina in f1lines:
@@ -52,38 +53,16 @@ def proces2(fx):
                if (z3):          
                   g1.write('%s %8.2f  %s\n' %(itm[0],amt,itm[5][0:60]))              
                elif (w6) :
-                  g2.write('--%s\n' %(linb))
-               #else:
-               #   g2.write('XX%s\n' %(linb))
+                  g2.write('%s %8.2f  %s\n' %(itm[0],amt,linb))                   
    f1.close()   
    g1.close()
    g2.close()   
-   return 
+   return  
 
-def proc(nam,nam1,opt): 
-   gx= open(acctTxt,'a')
-   gx.write('\n              '+nam1+' Account Activity 2021  \n\n')
-   gx.close() 
-   for i in range(12,9,-1):
-      xnam =banktop+nam+str(i)+'.csv'    
-      if os.path.isfile(xnam): 
-         if opt==0:      
-            proces2(xnam)
-         else:
-            proces1(xnam)         
-   for i in range(9,0,-1): 
-      xnam =banktop+nam+'0'+str(i)+'.csv'     
-      if os.path.isfile(xnam):            
-         if opt==0:      
-            proces2(xnam)
-         else:
-            proces1(xnam) 
-   return 
-
-def proces1(fx):
+def proces1(fx,gx,opt):
    print('      %s' %(fx))   
    f1= open(fx,'r')
-   g1 = open(acctTxt,'a') 
+   g1 = open(gx,'a') 
    f1lines = f1.readlines()
    for lina in f1lines:
       linb = lina.rstrip()
@@ -94,33 +73,55 @@ def proces1(fx):
          if itm[4] =='':
            amt = float(itm[3])      
          else: 
-           amt = float(itm[4])         
-         #g1.write('%10.2f -- %s\n' %(amt,linb[0:100]))
-         g1.write('%s %8.2f  %s\n' %(itm[0],amt,itm[5][0:60]))  
-      else:
-         xx = linb.find('<Date>')        
-         if ((len(linb) > 2) and (xx == -1)):
-            g1.write('--%s\n' %(linb))
+           amt = float(itm[4])        
+         if ((opt ==1) and (amt < 0)):            
+            g1.write('%s %8.2f  %s\n' %(itm[0],amt,itm[5][0:60]))  
+         elif (opt ==2):  # for all cash transactions           
+            g1.write('%s %9.2f  %s\n' %(itm[0],amt,linb[10:100]))           
    f1.close()   
    g1.close()      
-   return    
+   return 
+
+def proc(nam,nam1,gfile,opt): 
+   if opt:
+      gx= open(acctTxt,'a')
+      gx.write('\n              '+nam1+' Account Activity 2021  \n\n')
+      gx.close() 
+   for i in range(12,9,-1):
+      xnam =banktop+nam+str(i)+'.csv'    
+      if os.path.isfile(xnam): 
+         if opt==0:      
+            proces0(xnam,gfile) 
+         else:
+            proces1(xnam,gfile,opt)         
+   for i in range(9,0,-1): 
+      xnam =banktop+nam+'0'+str(i)+'.csv'     
+      if os.path.isfile(xnam):            
+         if opt==0:      
+            proces0(xnam,gfile) 
+         else:
+            proces1(xnam,gfile,opt) 
+   return   
 
 if __name__ == "__main__":
    print(' start')  
    conv1.conv1()   
    if not os.path.exists('out1'):
       os.mkdir('out1')    
-   g1= open(acctTxt,'w')
-   g1.write('      Cash flow 2021 \n\n')
-   g1.close() 
+   g1= open(acctTxt,'w');   g1.close() 
    g2= open(exptTxt,'w')
    g2.write('      Cash flow unaccounted 2021 \n\n')
-   g2.close()    
-   proc('cashflow','Cashflow',0)  
-   proc('guesth','Guesthouse 9206',1)
-   proc('main','Mainhouse 0501',1)   
-   proc('con','Construction 0509',1) 
-   proc('farm','Farm 0584',1)     
+   g2.close()  
+   g3= open(allCash,'w')
+   g3.write('      Cash All Activity 2021 \n\n')
+   g3.close()   
+   proc('con','Construction',allCash,2) 
+   proc('cashflow','Cashflow',allCash,2)     
+   proc('cashflow','Cashflow',acctTxt,0)  
+   proc('guesth','Guesthouse 9206',acctTxt,1)
+   proc('main','Mainhouse 0501',acctTxt,1)   
+   proc('con','Construction 0509',acctTxt,1) 
+   proc('farm','Farm 0584',acctTxt,1)     
    print('   end part1, start recon')   
    sys.exit()  
  
