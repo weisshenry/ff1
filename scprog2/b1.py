@@ -4,14 +4,13 @@
 #  expenses fmt:  date  info  amt   (info needs 2 words <-bug)
 import sys, os,time, shutil
 import numpy as np
-import conv1
 import pdb
 
 db=0 
 banktop = './st1/'                # bank csv files
-acctTxt= './out1/CashAcct21.txt'
-exptTxt= './out1/CashExpt21.txt'
-allCash= './out1/CashAll_21.txt'
+acctCsv= './out2/CashAcct21.csv'
+exptTxt= './out2/CashExpt21.txt'
+
 
 def proces0(fx,gx):
    print('      %s' %(fx))   
@@ -51,18 +50,20 @@ def proces0(fx,gx):
                amt = float(itm[4]) 
             if (amt < 0):    
                if (z3):          
-                  g1.write('%s %8.2f  %s\n' %(itm[0],amt,itm[5][0:60]))              
+                  g1.write('%s %8.2f  %s\n' %(itm[0],amt,itm[5][0:60]))                                      
                elif (w6) :
                   g2.write('%s %8.2f  %s\n' %(itm[0],amt,linb))                   
    f1.close()   
    g1.close()
-   g2.close()   
+   g2.close()  
+   gv.close()   
    return  
 
 def proces1(fx,gx,opt):
    print('      %s' %(fx))   
    f1= open(fx,'r')
-   g1 = open(gx,'a') 
+   g1 = open(gx,'a')
+ 
    f1lines = f1.readlines()
    for lina in f1lines:
       linb = lina.rstrip()
@@ -76,52 +77,48 @@ def proces1(fx,gx,opt):
            amt = float(itm[4])        
          if ((opt ==1) and (amt < 0)):            
             g1.write('%s %8.2f  %s\n' %(itm[0],amt,itm[5][0:60]))  
+            #gx.write('%s, %s,%8.2f\n' %(itm[0],itm[5][0:60],amt*-1))  
          elif (opt ==2):  # for all cash transactions           
             g1.write('%s %9.2f  %s\n' %(itm[0],amt,linb[10:100]))           
    f1.close()   
-   g1.close()      
+   g1.close() 
+   gv.close()   
    return 
 
-def proc(nam,nam1,gfile,opt): 
+def proc(nam,nam1,opt): 
    if opt:
-      gx= open(acctTxt,'a')
-      gx.write('\n              '+nam1+' Account Activity 2021  \n\n')
-      gx.close() 
+      gv= open(acctCsv,'a')
+      gv.write('\n   ,          '+nam1+' Account Activity 2021  \n\n')
+      gv.close()
    for i in range(12,9,-1):
       xnam =banktop+nam+str(i)+'.csv'    
       if os.path.isfile(xnam): 
          if opt==0:      
-            proces0(xnam,gfile) 
+            proces0(xnam,acctCsv) 
          else:
-            proces1(xnam,gfile,opt)         
+            proces1(xnam,acctCsv,opt)         
    for i in range(9,0,-1): 
       xnam =banktop+nam+'0'+str(i)+'.csv'     
       if os.path.isfile(xnam):            
          if opt==0:      
-            proces0(xnam,gfile) 
+            proces0(xnam,acctCsv) 
          else:
-            proces1(xnam,gfile,opt) 
+            proces1(xnam,acctCsv,opt) 
    return   
 
 if __name__ == "__main__":
    print(' start')  
-   conv1.conv1()   
-   if not os.path.exists('out1'):
-      os.mkdir('out1')    
-   g1= open(acctTxt,'w');   g1.close() 
+   if not os.path.exists('out2'):
+      os.mkdir('out2')  
+   gv= open(acctCsv,'w');   gv.close() 
    g2= open(exptTxt,'w')
    g2.write('      Cash flow unaccounted 2021 \n\n')
-   g2.close()  
-   g3= open(allCash,'w')
-   g3.write('      Cash All Activity 2021 \n\n')
-   g3.close()   
-   proc('con','Construction',allCash,2) 
-   proc('cashflow','Cashflow',allCash,2)     
-   proc('cashflow','Cashflow',acctTxt,0)  
-   proc('guesth','Guesthouse 9206',acctTxt,1)
-   proc('main','Mainhouse 0501',acctTxt,1)   
-   proc('con','Construction 0509',acctTxt,1) 
-   proc('farm','Farm 0584',acctTxt,1)     
+   g2.close()      
+   proc('cashflow','Cashflow',0)  
+   proc('guesth','Guesthouse 9206',1)
+   proc('main','Mainhouse 0501',1)   
+   proc('con','Construction 0509',1) 
+   proc('farm','Farm 0584',1)     
    print('   end part1, start recon')   
    sys.exit()  
  
