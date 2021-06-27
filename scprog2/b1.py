@@ -8,9 +8,9 @@ import pdb
 
 db=0 
 banktop = './st1/'                # bank csv files
-acctCsv= './out2/CashAcct21.csv'
+#acctCsv= './out2/CashAcct21.csv'
+acctCsv= 'ca21.csv'
 exptTxt= './out2/CashExpt21.txt'
-
 
 def proces0(fx,gx):
    print('      %s' %(fx))   
@@ -50,7 +50,8 @@ def proces0(fx,gx):
                amt = float(itm[4]) 
             if (amt < 0):    
                if (z3):          
-                  g1.write('%s %8.2f  %s\n' %(itm[0],amt,itm[5][0:60]))                                      
+                  #g1.write('%s %8.2f  %s\n' %(itm[0],amt,itm[5][0:60]))
+                  g1.write('%s, %s, %8.2f\n' %(itm[0],itm[5][0:60],amt))
                elif (w6) :
                   g2.write('%s %8.2f  %s\n' %(itm[0],amt,linb))                   
    f1.close()   
@@ -76,10 +77,12 @@ def proces1(fx,gx,opt):
          else: 
            amt = float(itm[4])        
          if ((opt ==1) and (amt < 0)):            
-            g1.write('%s %8.2f  %s\n' %(itm[0],amt,itm[5][0:60]))  
+            #g1.write('%s %8.2f  %s\n' %(itm[0],amt,itm[5][0:60]))  
+            g1.write('%s, %s, %8.2f\n' %(itm[0],itm[5][0:60],amt))  
             #gx.write('%s, %s,%8.2f\n' %(itm[0],itm[5][0:60],amt*-1))  
          elif (opt ==2):  # for all cash transactions           
-            g1.write('%s %9.2f  %s\n' %(itm[0],amt,linb[10:100]))           
+            #g1.write('%s %9.2f  %s\n' %(itm[0],amt,linb[10:100])) 
+            g1.write('%s, %s, %9.2f \n' %(itm[0],linb[10:100],amt))                  
    f1.close()   
    g1.close() 
    gv.close()   
@@ -88,7 +91,7 @@ def proces1(fx,gx,opt):
 def proc(nam,nam1,opt): 
    if opt:
       gv= open(acctCsv,'a')
-      gv.write('\n   ,          '+nam1+' Account Activity 2021  \n\n')
+      gv.write('\n   ,          '+nam1+' Account Activity 2021  ,\n, ,\n')
       gv.close()
    for i in range(12,9,-1):
       xnam =banktop+nam+str(i)+'.csv'    
@@ -112,7 +115,7 @@ if __name__ == "__main__":
       os.mkdir('out2')  
    gv= open(acctCsv,'w');   gv.close() 
    g2= open(exptTxt,'w')
-   g2.write('      Cash flow unaccounted 2021 \n\n')
+   g2.write(',     Cash flow unaccounted 2021 ,\n, ,\n')
    g2.close()      
    proc('cashflow','Cashflow',0)  
    proc('guesth','Guesthouse 9206',1)

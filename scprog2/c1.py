@@ -4,12 +4,12 @@ import pdb
  
 accCsv= 'ca21.csv'
 expCsv= 'ex21.csv'
-chkTxt=  'check21.txt'
+chkTxt= 'check21.txt'
 kywd=['BRITTANY','WAL-MART','TELEPHO','PAULDING',\
       'Prime Video','S & S','DEB SCHROEDER',"CHERRY'S",\
       'BRICKNER CONS', 'OMIG','TRACTOR SUPPLY','SCHROEDER AND CO',\
       'GLANDORF WAREHOUSE','KODY KUHLMAN','WATER SOLUTIONS',\
-      'PUTNAM COUNTY TREA']
+      'PUTNAM COUNTY TREA','GREG BROWN']
 
 def findit(glin,amt,dat,txt):
    k = len(glin)
@@ -21,10 +21,10 @@ def findit(glin,amt,dat,txt):
       if xx > -1:
          gotit =1         
          ww = i
-         print(' found keyword %s ' %(kywd[i]))
+         #print(' found keyword %s ' %(kywd[i]))
          break
    if gotit==0:
-       print(' did not find keyword')
+       #print(' did not find keyword')
        #pdb.set_trace()
        return 0;   
    for lina in glin:
@@ -40,8 +40,8 @@ def findit(glin,amt,dat,txt):
       #if ((yy > -1) and (dat2==dat) and (amt2==amt)):
       if ((yy > -1) and (dat2==dat)):     
          return 1
-      elif yy > -1:
-         print(' dat2 %s  dat %s  txt2 %s '%(dat2,dat,txt2))
+      #elif yy > -1:
+      #   print(' dat2 %s  dat %s  txt2 %s '%(dat2,dat,txt2))
    print(' no match for %s ' %(txt))   
    #pdb.set_trace()   
    return 0        
@@ -64,12 +64,12 @@ def proces1(fx,gx,hx):
            amt =0.0
          dat = itm[0]        
          txt = itm[1] 
-         print('xx %s %s ' %(dat,txt))   
+         #print('xx %s %s ' %(dat,txt))   
          #pdb.set_trace()         
          jj =0
          if (len(dat) > 7):
             jj = findit(glin,amt,dat,txt) 
-            print(' ret')
+            #print(' ret')
             #pdb.set_trace()
          if jj:         
             h1.write('  %s %9.2f  %s\n' %(dat,float(amt),txt))  
