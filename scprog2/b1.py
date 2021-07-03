@@ -7,16 +7,15 @@ import numpy as np
 import pdb
 
 db=0 
-banktop = './st1/'                # bank csv files
-#acctCsv= './out2/CashAcct21.csv'
-acctCsv= 'ca21.csv'
-exptTxt= './out2/CashExpt21.txt'
+banktop = './st1/'                #  input: bank csv files
+acctCsv= 'ca21.csv'               # output: ca21.csv ( per 'find' )
+exptTxt= './out2/CashExpt21.txt'  # output: unaccounted expenses
 
-def proces0(fx,gx):
+def proces0(fx,acctCsv):
    print('      %s' %(fx))   
    f1= open(fx,'r')
-   g1 = open(gx,'a')    
-   g2 = open(exptTxt,'a')  
+   g1 = open(acctCsv,'a')    # accounted for, found
+   g2 = open(exptTxt,'a')    # exception file, unaccounted
    f1lines = f1.readlines()
    for lina in f1lines:
       linb = lina.rstrip()
@@ -49,9 +48,8 @@ def proces0(fx,gx):
             else: 
                amt = float(itm[4]) 
             if (amt < 0):    
-               if (z3):          
-                  #g1.write('%s %8.2f  %s\n' %(itm[0],amt,itm[5][0:60]))
-                  g1.write('%s, %s, %8.2f\n' %(itm[0],itm[5][0:60],amt))
+               if (z3):                
+                  g1.write('%s, %-60s, %12.2f\n' %(itm[0],itm[5][0:60],amt))
                elif (w6) :
                   g2.write('%s %8.2f  %s\n' %(itm[0],amt,linb))                   
    f1.close()   
@@ -60,10 +58,10 @@ def proces0(fx,gx):
    gv.close()   
    return  
 
-def proces1(fx,gx,opt):
+def proces1(fx,acctCsv,opt):
    print('      %s' %(fx))   
    f1= open(fx,'r')
-   g1 = open(gx,'a')
+   g1 = open(acctCsv,'a')
  
    f1lines = f1.readlines()
    for lina in f1lines:
@@ -77,17 +75,15 @@ def proces1(fx,gx,opt):
          else: 
            amt = float(itm[4])        
          if ((opt ==1) and (amt < 0)):            
-            #g1.write('%s %8.2f  %s\n' %(itm[0],amt,itm[5][0:60]))  
-            g1.write('%s, %s, %8.2f\n' %(itm[0],itm[5][0:60],amt))  
-            #gx.write('%s, %s,%8.2f\n' %(itm[0],itm[5][0:60],amt*-1))  
+            g1.write('%s, %-60s, %12.2f\n' %(itm[0],itm[5][0:60],amt))              
          elif (opt ==2):  # for all cash transactions           
-            #g1.write('%s %9.2f  %s\n' %(itm[0],amt,linb[10:100])) 
-            g1.write('%s, %s, %9.2f \n' %(itm[0],linb[10:100],amt))                  
+            g1.write('%s, %-60s, %12.2f \n' %(itm[0],linb[10:100],amt))                  
    f1.close()   
    g1.close() 
    gv.close()   
    return 
 
+# finds the st1/ bank statements per nam, nam1
 def proc(nam,nam1,opt): 
    if opt:
       gv= open(acctCsv,'a')

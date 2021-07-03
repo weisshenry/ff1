@@ -1,10 +1,21 @@
+#   a1.py  -->  input:  all accts in st1
+#              output:  out1/CashAll_21.txt  all bank transactions
+#   b1.py  -->  input:  all accts in st1
+#              output:  accounted for ca21.csv
+#              output:  unaccounted for out2/CashExct.txt 
+#   d1.py  -->  input:  ca21.csv  Sorted import from all bank statements
+#                       ex21.txt  Paper trail - manually compiled
+#              Output:  check21.txt  Issues on ca21.csv which should be 
+#                       entered on paper trail. 
+# glin = list of all date-desc-amts to find in the master list of keywords 
+# from ca21.csv glin needs 'cleaned' of comments, so only has date-desc-amts
 import sys, os,time, shutil
 import numpy as np
 import pdb
  
-accCsv= 'ca21.csv'
-expCsv= 'ex21.csv'
-chkTxt= 'check21.txt'
+ca21csv= 'ca21.csv'    # INPUT
+ex21Txt= 'ex21.txt'    # INPUT
+check21= 'check21.txt' # Output
 kywd=['BRITTANY','WAL-MART','TELEPHO','PAULDING',\
       'Prime Video','S & S','DEB SCHROEDER',"CHERRY'S",\
       'BRICKNER CONS', 'OMIG','TRACTOR SUPPLY','SCHROEDER AND CO',\
@@ -12,8 +23,7 @@ kywd=['BRITTANY','WAL-MART','TELEPHO','PAULDING',\
       'PUTNAM COUNTY TREA','GREG BROWN']
 
 def findit(glin,amt,dat,txt):
-   k = len(glin)
-   #pdb.set_trace()
+   k = len(glin)   
    gotit=0
    ww = 99
    for i in range(len(kywd)):
@@ -24,8 +34,7 @@ def findit(glin,amt,dat,txt):
          #print(' found keyword %s ' %(kywd[i]))
          break
    if gotit==0:
-       #print(' did not find keyword')
-       #pdb.set_trace()
+       #print(' did not find keyword')      
        return 0;   
    for lina in glin:
       linb = lina.rstrip()
@@ -35,47 +44,56 @@ def findit(glin,amt,dat,txt):
       except:
          amt2= 0.0      
       dat2 = itm[0]
-      txt2 = itm[1]
+      try:
+         txt2 = itm[1]
+      except:
+         print('ERR: %s ' %(linb))
+         pdb.set_trace()      
       yy = txt2.find(kywd[ww])     
       #if ((yy > -1) and (dat2==dat) and (amt2==amt)):
       if ((yy > -1) and (dat2==dat)):     
-         return 1
-      #elif yy > -1:
-      #   print(' dat2 %s  dat %s  txt2 %s '%(dat2,dat,txt2))
-   print(' no match for %s ' %(txt))   
-   #pdb.set_trace()   
-   return 0        
+         return 1      
+   print(' no match for %s ' %(txt))       
+   return 0 
 
-def proces1(fx,gx,hx):
-   print('      %s' %(fx))   
-   f1= open(fx,'r')
-   g1 = open(gx,'r') 
-   h1 = open(hx,'w') 
+def cleaned(glin):
+   gline = []
+   for i in range(len(glin)): 
+      glinx = glin[i].rstrip()   
+      itm = glinx.split(',')     
+      lx = len(itm)  
+      x = itm[0].find('/')
+      if ((x > -1) and (lx > 2)):
+         gline.append(glinx)  
+   print('   before: %d  after: %d ' %(len(glin),len(gline)))    
+   return gline      
+
+def proces1(ca21csv,ex21Txt,check21):
+   print('   Input: %s, %s  Output:  %s' %(ca21csv,ex21Txt,check21))  
+   f1= open(ca21csv,'r')
+   g1 = open(ex21Txt,'r') 
+   h1 = open(check21,'w') 
    flin = f1.readlines()
-   glin = g1.readlines()
+   glin = g1.readlines()  
+   glin = cleaned(glin)
    for lina in flin:
       linb = lina.rstrip()
       itm = linb.split(',')     
-      lx = len(itm)         
+      lx = len(itm)           
       if (lx > 2): 
          try:
            amt = float(itm[2])      
          except:
            amt =0.0
          dat = itm[0]        
-         txt = itm[1] 
-         #print('xx %s %s ' %(dat,txt))   
-         #pdb.set_trace()         
+         txt = itm[1]                 
          jj =0
          if (len(dat) > 7):
-            jj = findit(glin,amt,dat,txt) 
-            #print(' ret')
-            #pdb.set_trace()
+            jj = findit(glin,amt,dat,txt)            
          if jj:         
-            h1.write('  %s %9.2f  %s\n' %(dat,float(amt),txt))  
+            h1.write('  %s %-60s %10.2f \n' %(dat,txt,float(amt)))  
          elif (len(dat) > 7):
-            h1.write('--%s %9.2f  %s\n' %(dat,float(amt),txt)) 
-            #pdb.set_trace()
+            h1.write('--%s %-60s %10.2f \n' %(dat,txt,float(amt)))             
          else: 
             h1.write('  %s\n' %(linb))          
    f1.close()   
@@ -84,8 +102,8 @@ def proces1(fx,gx,hx):
    return 
 
 if __name__ == "__main__":
-   print(' start')      
-   proces1(accCsv,expCsv,chkTxt)    
+   print('   start')      
+   proces1(ca21csv,ex21Txt,check21)    
    print('   end ')   
    sys.exit()  
  
