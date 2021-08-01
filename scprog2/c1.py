@@ -1,26 +1,27 @@
 #   a1.py  -->  input:  all accts in st1
 #              output:  out1/CashAll_21.txt  all bank transactions
 #   b1.py  -->  input:  all accts in st1
-#              output:  accounted for ca21.csv
+#              output:  accounted for ca21.txt
 #              output:  unaccounted for out2/CashExct.txt 
-#   d1.py  -->  input:  ca21.csv  Sorted import from all bank statements
+#   c1.py  -->  input:  ca21.txt  Sorted import from all bank statements
 #                       ex21.txt  Paper trail - manually compiled
-#              Output:  check21.txt  Issues on ca21.csv which should be 
+#              Output:  check21.txt  Issues on ca21.txt which should be 
 #                       entered on paper trail. 
 # glin = list of all date-desc-amts to find in the master list of keywords 
-# from ca21.csv glin needs 'cleaned' of comments, so only has date-desc-amts
+# from ca21.txt glin needs 'cleaned' of comments, so only has date-desc-amts
 import sys, os,time, shutil
 import numpy as np
 import pdb
  
-ca21csv= 'ca21.csv'    # INPUT
+ca21Ttxt= 'ca21.txt'    # INPUT
 ex21Txt= 'ex21.txt'    # INPUT
 check21= 'check21.txt' # Output
 kywd=['BRITTANY','WAL-MART','TELEPHO','PAULDING',\
       'Prime Video','S & S','DEB SCHROEDER',"CHERRY'S",\
       'BRICKNER CONS', 'OMIG','TRACTOR SUPPLY','SCHROEDER AND CO',\
       'GLANDORF WAREHOUSE','KODY KUHLMAN','WATER SOLUTIONS',\
-      'PUTNAM COUNTY TREA','GREG BROWN']
+      'PUTNAM COUNTY TREA','GREG BROWN','POWER HOUSE',\
+      'ALLEN SCHROEDER',"ELLERBROCK'S PLUMB", 'OHIO SANITARY', 'VAN WERT CARTS']
 
 def findit(glin,amt,dat,txt):
    k = len(glin)   
@@ -68,9 +69,9 @@ def cleaned(glin):
    print('   before: %d  after: %d ' %(len(glin),len(gline)))    
    return gline      
 
-def proces1(ca21csv,ex21Txt,check21):
-   print('   Input: %s, %s  Output:  %s' %(ca21csv,ex21Txt,check21))  
-   f1= open(ca21csv,'r')
+def proces1(ca21Ttxt,ex21Txt,check21):
+   print('   Input: %s, %s  Output:  %s' %(ca21Ttxt,ex21Txt,check21))  
+   f1= open(ca21Ttxt,'r')
    g1 = open(ex21Txt,'r') 
    h1 = open(check21,'w') 
    flin = f1.readlines()
@@ -103,7 +104,7 @@ def proces1(ca21csv,ex21Txt,check21):
 
 if __name__ == "__main__":
    print('   start')      
-   proces1(ca21csv,ex21Txt,check21)    
+   proces1(ca21Ttxt,ex21Txt,check21)    
    print('   end ')   
    sys.exit()  
  

@@ -1,7 +1,17 @@
-# top1.py  Process accounts
-# Notes:  save expenses.odt as a csv file
-#    field delim:  space     string delim: " 
-#  expenses fmt:  date  info  amt   (info needs 2 words <-bug)
+# step1: Premier bank web site ----------------
+#	1 All; 2 Transactions ;	3 Download
+# step2:  
+#   a1.py  -->  input:  all accts in st1
+#              output:  out1/CashAll_21.txt  all bank transactions
+#                       sanity check on cash transactions
+#   b1.py  -->  input:  processes all accts in st1
+#              output:  accounted for ca21.txt
+#              output:  unaccounted for out2/CashExct.txt 
+#   c1.py  -->  input:  ca21.txt  Sorted import from all bank statements
+#                       ex21.txt  Paper trail - manually compiled
+#              Output:  check21.txt  Issues on ca21.txt which should be 
+#                       entered on paper trail. 
+# step3: enter these into ex21, and rerun c1.py; need CSV format
 import sys, os,time, shutil
 import numpy as np
 import pdb

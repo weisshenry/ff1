@@ -8,13 +8,13 @@ import pdb
 
 db=0 
 banktop = './st1/'                #  input: bank csv files
-acctCsv= 'ca21.csv'               # output: ca21.csv ( per 'find' )
+ca21Txt= 'ca21.txt'               # output: ca21.txt ( per 'find' )
 exptTxt= './out2/CashExpt21.txt'  # output: unaccounted expenses
 
-def proces0(fx,acctCsv):
+def proces0(fx,ca21Txt):
    print('      %s' %(fx))   
    f1= open(fx,'r')
-   g1 = open(acctCsv,'a')    # accounted for, found
+   g1 = open(ca21Txt,'a')    # accounted for, found
    g2 = open(exptTxt,'a')    # exception file, unaccounted
    f1lines = f1.readlines()
    for lina in f1lines:
@@ -38,8 +38,10 @@ def proces0(fx,acctCsv):
       y8 = linb.find('WAL-MART')
       y9 = linb.find('PUTNAM COUNTY')
       y10 = linb.find('VAN WERT')
+      y11 = linb.find('POWER HOUSE')
+      y12 = linb.find('ALLEN SCHROEDER')
       z1 = ((y1 > -1) or (y2 > -1) or (y3 > -1) or (y4 > -1) or (y5  > -1))
-      z2 = ((y6 > -1) or (y7 > -1) or (y8 > -1) or (y9 > -1) or (y10 > -1))
+      z2 = ((y6 > -1) or (y7 > -1) or (y8 > -1) or (y9 > -1) or (y10 > -1)or (y11 > -1)or (y12 > -1))
       z3 = z1 or z2
       if ((xx == -1) and (len(linb) >2)):
          if ((lx > 3) and (xx == -1)) : 
@@ -58,10 +60,10 @@ def proces0(fx,acctCsv):
    gv.close()   
    return  
 
-def proces1(fx,acctCsv,opt):
+def proces1(fx,ca21Txt,opt):
    print('      %s' %(fx))   
    f1= open(fx,'r')
-   g1 = open(acctCsv,'a')
+   g1 = open(ca21Txt,'a')
  
    f1lines = f1.readlines()
    for lina in f1lines:
@@ -85,31 +87,31 @@ def proces1(fx,acctCsv,opt):
 
 # finds the st1/ bank statements per nam, nam1
 def proc(nam,nam1,opt): 
-   if opt:
-      gv= open(acctCsv,'a')
-      gv.write('\n   ,          '+nam1+' Account Activity 2021  ,\n, ,\n')
+   if 1:
+      gv= open(ca21Txt,'a')
+      gv.write('\n   ,          '+nam1+' Account Activity 2021  ,\n\n')
       gv.close()
    for i in range(12,9,-1):
       xnam =banktop+nam+str(i)+'.csv'    
       if os.path.isfile(xnam): 
          if opt==0:      
-            proces0(xnam,acctCsv) 
+            proces0(xnam,ca21Txt) 
          else:
-            proces1(xnam,acctCsv,opt)         
+            proces1(xnam,ca21Txt,opt)         
    for i in range(9,0,-1): 
       xnam =banktop+nam+'0'+str(i)+'.csv'     
       if os.path.isfile(xnam):            
          if opt==0:      
-            proces0(xnam,acctCsv) 
+            proces0(xnam,ca21Txt) 
          else:
-            proces1(xnam,acctCsv,opt) 
+            proces1(xnam,ca21Txt,opt) 
    return   
 
 if __name__ == "__main__":
    print(' start')  
    if not os.path.exists('out2'):
       os.mkdir('out2')  
-   gv= open(acctCsv,'w');   gv.close() 
+   gv= open(ca21Txt,'w');   gv.close() 
    g2= open(exptTxt,'w')
    g2.write(',     Cash flow unaccounted 2021 ,\n, ,\n')
    g2.close()      
