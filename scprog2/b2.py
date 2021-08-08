@@ -8,6 +8,13 @@ db=0
 banktop = './st1/'                #  input: bank csv files
 ca21Txt= 'ca21.txt'               # output: ca21.txt ( per 'find' )
 
+def exclude1(line):
+   w1 = line.find('TO ACC')
+   w2 = line.find('TRF TO LOAN')
+   w3 = line.find('TRANSFER TO LOAN')
+   w6 = not(( w1 > -1) or (w2 > -1) or (w3 > -1))
+   return w6   
+
 def proces0(fx,ca21Txt):
    print('      %s' %(fx))   
    f1= open(fx,'r')
@@ -17,11 +24,9 @@ def proces0(fx,ca21Txt):
       linb = lina.rstrip()
       itm = linb.split(',')     
       lx = len(itm) 
-      xx = linb.find('<Date>')
-      w1 = linb.find('TO ACC')
-      w2 = linb.find('TRANSFER TO LOAN')
-      w6 = not(( w1 > -1) or (w2 > -1))
-      y1 = linb.find('CHECK')  
+      xx = linb.find('<Date>')  
+      y1 = linb.find('CHECK') 
+      w6 = exclude1(linb)      
       if (y1 > -1): 
           #pdb.set_trace()                   
           g1.write('%s, %s %-55s, %12.2f\n' %(itm[0],itm[1],itm[2],float(itm[3])))      
@@ -46,8 +51,9 @@ def proces1(fx,ca21Txt,opt):
       linb = lina.rstrip()
       itm = linb.split(',')     
       lx = len(itm) 
-      xx = linb.find('<Date>')      
-      if ((lx > 3) and (xx == -1)) : 
+      xx = linb.find('<Date>') 
+      w6 = exclude1(linb)       
+      if ((lx > 3) and (xx == -1) and (w6)) : 
          if itm[4] =='':
            amt = float(itm[3])      
          else: 
@@ -62,8 +68,10 @@ def proces1(fx,ca21Txt,opt):
 
 # finds the st1/ bank statements per nam, nam1
 def proc(nam,nam1,opt): 
-   gv= open(ca21Txt,'a')
-   gv.write('\n   ,          '+nam1+' Account Activity 2021  ,\n\n')
+   gv= open(ca21Txt,'a') 
+   gv.write(' ,  , \n')
+   gv.write(' ,          '+nam1+' Account Activity 2021  ,\n')
+   gv.write(' ,  , \n')
    gv.close()
    for i in range(12,9,-1):
       xnam =banktop+nam+str(i)+'.csv'    
@@ -83,7 +91,17 @@ def proc(nam,nam1,opt):
 
 if __name__ == "__main__":
    print(' start')     
-   gv= open(ca21Txt,'w');   gv.close()       
+   gv= open(ca21Txt,'w'); 
+   gv.write(' ,  , \n')
+   gv.write(' ,  File:  ac1.txt   Consolidated from all bank statements   ,\n')
+   gv.write(' ,      4735 =Cash      0501 =Main      9206 = Guesthouse    ,\n')
+   gv.write(' ,      0509 =Constr    0584 =Farm                           ,\n')
+   gv.write(' ,  Note: Exclude TRF_TO_LOAN or TO_ACC_XXX                  ,\n')
+   gv.write(' ,  This file is matched w/ ex1.txt  Paper trail of all      ,\n')
+   gv.write(' ,  expenses. The file check21.txt will tag any discrepancies,\n')
+   gv.write(' ,  i.e. any expense listed here not on the papar trail.     ,\n')
+   gv.write(' ,  , \n')
+   gv.close()       
    proc('cashflow','Cashflow',0)  
    proc('guesth','Guesthouse 9206',1)
    proc('main','Mainhouse 0501',1)   

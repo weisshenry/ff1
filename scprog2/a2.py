@@ -12,6 +12,7 @@
 #              Output:  check21.txt  Issues on ca21.txt which should be 
 #                       entered on paper trail. 
 # step3: enter these into ex21, and rerun c1.py; need CSV format
+# TODO report any empty bank statements
 import sys, os,time, shutil
 import numpy as np
 import pdb
@@ -25,7 +26,7 @@ def proces1(fx,gx,opt):
    f1= open(fx,'r')
    g1 = open(gx,'a')  
    g1.write('\n\n %s \n' %(fx))   
-   f1lines = f1.readlines()
+   f1lines = f1.readlines()   
    for lina in f1lines:
       linb = lina.rstrip()
       itm = linb.split(',')     

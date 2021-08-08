@@ -13,16 +13,26 @@ import sys, os,time, shutil
 import numpy as np
 import pdb
  
-ca21Ttxt= 'ca21.txt'    # INPUT
-ex21Txt= 'ex21.txt'    # INPUT
-check21= 'check21.txt' # Output
-kywd=['BRITTANY','WAL-MART','TELEPHO','PAULDING',\
-      'Prime Video','S & S','DEB SCHROEDER',"CHERRY'S",\
-      'BRICKNER CONS', 'OMIG','TRACTOR SUPPLY','SCHROEDER AND CO',\
-      'GLANDORF WAREHOUSE','KODY KUHLMAN','WATER SOLUTIONS',\
-      'PUTNAM COUNTY TREA','GREG BROWN','POWER HOUSE',\
-      'ALLEN SCHROEDER',"ELLERBROCK'S PLUMB", 'OHIO SANITARY',\
-      'VAN WERT CARTS','MATIJEVICH FLOOR','PAINTING MAIN HOUS' ]
+ca21Ttxt= 'ca21.txt'        # INPUT
+ex21Txt= './st2/ex21.txt'   # INPUT
+check21= 'check21.txt'      # Output
+kywd=[ \
+   # 1099 Work
+     'BRITTANY KUHLMAN','KODY KUHLMAN','DEB SCHROEDER',\
+   #utilities:   
+     'GLANDORF TELEPHO','PAULDING',\
+     'Prime Video','S & S',"CHERRY'S",'OHIO SANITARY',\
+   #contractors    
+     'ALLEN SCHROEDER',"ELLERBROCK'S PLUMB",'MATIJEVICH FLOOR',\
+     'BRICKNER CONS','GREG BROWN','POWER HOUSE',\
+   #commerical supplies, etc
+     'WAL-MART', 'VAN WERT CARTS','TRACTOR SUPPLY',\
+     'GLANDORF WAREHOUSE','WATER SOLUTIONS','K & L READY',\
+   #govt, CPA, INSUR etc
+     'PUTNAM COUNTY TREA','SCHROEDER AND CO','OMIG',\
+   #misc - checks,     
+     'TLR18004','TLR18005','TLR18009','TLR18010','CASH WITHDRAWAL',\
+     '1005 CHECK','1007 CHECK','1008 CHECK','RETURN ITEM' ]
 
 def findit(glin,amt,dat,txt):
    k = len(glin)   
@@ -67,7 +77,7 @@ def cleaned(glin):
       x = itm[0].find('/')
       if ((x > -1) and (lx > 2)):
          gline.append(glinx)  
-   print('   before: %d  after: %d ' %(len(glin),len(gline)))    
+   #print('   before: %d  after: %d ' %(len(glin),len(gline)))    
    return gline      
 
 def proces1(ca21Ttxt,ex21Txt,check21):
@@ -104,7 +114,8 @@ def proces1(ca21Ttxt,ex21Txt,check21):
    return 
 
 if __name__ == "__main__":
-   print('   start')      
+   print('   start') 
+   print('   Note: If NO MATCH appears, add the expense to ex21.txt ')   
    proces1(ca21Ttxt,ex21Txt,check21)    
    print('   end ')   
    sys.exit()  
