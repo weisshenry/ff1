@@ -1,4 +1,20 @@
 Info for ubuntu for cnn
+
+06/28/21
+conda activate my36 (this has tensorflow)
+python; import tensorflow as tf; print(tf.__version__)  got 2.1
+Trying noiseprint2, but cudnn error
+  so blogs:  conda install -c anaconda cudatoolkit
+             conda install -c anaconda cudnn
+
+The fix was putting this at beginning of program:            
+
+	import tensorflow as tf
+	config = tf.compat.v1.ConfigProto()
+	config.gpu_options.allow_growth = True
+	session =tf.compat.v1.InteractiveSession(config=config)
+
+
 10/1/20 HWeiss
 
 ----versions---------------

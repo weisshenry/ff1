@@ -10,6 +10,7 @@ had to set paths:
 pip install opencv-python  for python 3
 10/1/20 HWeiss
 ----------conda create, install ------------------
+conda update -n base -c defaults conda    <-- update conda
 conda create --name=my36 python=3.6 anaconda
 conda install tensorflow-gpu=2.1.0
 conda install -c conda-forge opencv=3.4.4
@@ -92,6 +93,8 @@ sudo dpkg -i libcudnn7_7.6.5.32-1+cuda10.2_amd64.deb
 sudo dpkg -i libcudnn7-dev_7.6.5.32-1+cuda10.2_amd64.deb
 sudo dpkg -i libcudnn7-doc_7.6.5.32-1+cuda10.2_amd64.deb
 ------------------------------------------------------------
+----------------- grep ----------------------------
+grep -ri . -e 'pattern'
 
 
 
