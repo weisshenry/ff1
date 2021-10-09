@@ -1,0 +1,56 @@
+----Python class----
+
+@static_methods      <-- inside class, separate
+@class_methods(cls)  <-- class method
+instance_method(obj) 
+----
+class composition
+
+class Bookshelf
+  def __init__(self,*books):
+     self.books = books
+
+(compose books w/ bookshelf  (star *)
+----------------------------
+import functools
+
+user = {"username":"jose","access_level::"guest"}   dict
+
+def make_secure(func):   <-- this is a decorator
+   @functools.wraps(func)
+   def secure_funtion()
+      if user["access_level"]=="admin":
+	     return func()
+      else:
+         return f"No admin permission for {user['username']}."	  
+	return secure_function
+
+@make_secure         look for definiton of decorator
+def get_admin_password():
+    return "1234"
+	
+print(get_admin_password.__name__)	
+-------------------------------------------------	
+import functools        (*args, **kwargs)  <-- universal
+
+user = {"username":"jose","access_level::"guest"}   dict
+
+def make_secure(func):   <-- this is a decorator
+   @functools.wraps(func)
+   def secure_funtion(*args,**kwargs)   <-- dont care, universal args
+      if user["access_level"]=="admin":
+	     return func(*args,**kwargs)
+      else:
+         return f"No admin permission for {user['username']}."	  
+	return secure_function
+
+@make_secure
+def get_password(panel):
+    if panel == "admin"
+       return "1234"
+	elif panel =="billling"
+       return "super_secure"	   
+	
+print(get_password("billing")
+---------------------------------------------		
+		 
