@@ -95,6 +95,18 @@ sudo dpkg -i libcudnn7-doc_7.6.5.32-1+cuda10.2_amd64.deb
 ------------------------------------------------------------
 ----------------- grep ----------------------------
 grep -ri . -e 'pattern'
+-------------------------------------------
+------ desktop icon launcher ----
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Name=IDEA
+Exec=/home/barney/Downloads/idea-IC-212.5457.46/bin/idea.sh
+Terminal=false
+Type=Application
+Icon=/home/barney/Downloads/idea-IC-212.5457.46/bin/idea.png
+--------
+   
 
 
 
