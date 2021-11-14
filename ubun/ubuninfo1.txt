@@ -117,7 +117,7 @@ eval $(ssh-agent -s)
 ssh-add ~/.ssh/id_rsa
 ssh -A -i ~/ssh/id_rsa weisshm@10.10.10.10
 -----------------
-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
+
 
    
 
