@@ -1,73 +1,27 @@
-Info raspberry pi 4
-----linux status commands ------
-du -sh
-free
-sudo aplay /usr/share/sounds/alsa/Noise.wav
-<<<<<<< HEAD
-------------------------------------
-sudo apt-get install kodi-pvr-hts  
-(for the tvheadend client called htsp client)
+Info raspberry pi 12/1/21
+
+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
+
 hostname -I
--------------------------------
-http://192.168.1.11:9981
--------------------------------
-=======
----------------------------------------
-sudo apt-get install kodi-pvr-hts  
-(for the tvheadend client called htsp client)
------------------------------
-hostname -I
-http://192.168.1.11:9981
--------------------------
->>>>>>> 62341c0cd79057ec5dfd8a34653b8581de1b9f2d
-tvheadend   (ran this first)
-Then tried http, username, password
-sudo apt-get purge tvheadend
-sudp apt-get install tvheadend
------------------------------------
-sudo apt update
-sudp apt install snapd  
-sudo reboot
-sudo snap install tvheadend
----------------------------
-raspi-config
------------------------- 
-mkdir -p  /var/log/journal
-systemd-tmpfiles --create --prefix /var/log/journal
-journalctl --rotate
-journalctl --vacuum-time=1s
-journalctl -t tvheadend   (tail of logs)
------------------------------------
-sudo apt-get purge kodi
-sudo apt-get install kodi
-sudo apt-get autoremove --purge kodi
-rm -rf ./kodi
----------------------------------
-sudo apt install ./nextpvr-helper.d
-http://localhost:8866/index.html
-admin password
-------------------------------------
- Ubuntu ---
- Install tvheadend 
- sudo add-apt-repository 'deb https://apt.tvheadend.org/stable bionic main'
- 
- sudo apt update
-sudo apt install snapd
- sudo snap install tvheadend
- 
- dpkg -l | grep linux-image-generic-hwe
- ( running HWE, starts with ii
- sudo add-apt-repository ppa:b-rad/kernel+mediatree+hauppauge
- sudo apt-get update
- sudo apt-get install linux-hwe-mediatree
- 
- sudo apt-get install linux-firmware-hauppauge
- 
- uname -a   (should see media tree)
- lab-release -a  (check ubuntu version)
- 
- install Kaffeine
- 
+
+nmap -sP        get local ip address
+
+sudo raspi-config
+  vnc enable
+  ssh enable
+
+vnc server:
+  advanced  1280-720  
+  vnc port 5900
+  
+sudo systemctl enable ssh  
+
+
+
+  
+  
+  
+
  
 
 
