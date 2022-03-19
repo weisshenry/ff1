@@ -2,30 +2,33 @@
 #	1 All; 2 Transactions ;	3 Download
 # step2:  
 #   a1.py  -->  input:  all accts in st1
-#              output:  out1/CashAll_21.txt  all bank transactions
+#              output:  out1/CashAll_22.txt  all bank transactions
 #                       sanity check on cash transactions
 #   b1.py  -->  input:  processes all accts in st1
-#              output:  accounted for ca21.txt
+#              output:  accounted for ca22.txt
 #              output:  unaccounted for out2/CashExct.txt 
-#   c1.py  -->  input:  ca21.txt  Sorted import from all bank statements
-#                       ex21.txt  Paper trail - manually compiled
-#              Output:  check21.txt  Issues on ca21.txt which should be 
+#   c1.py  -->  input:  ca22.txt  Sorted import from all bank statements
+#                       ex22.txt  Paper trail - manually compiled
+#              Output:  check21.txt  Issues on ca22.txt which should be 
 #                       entered on paper trail. 
-# step3: enter these into ex21, and rerun c1.py; need CSV format
+# step3: enter these into ex22, and rerun c1.py; need CSV format
+# TODO report any empty bank statements
 import sys, os,time, shutil
 import numpy as np
 import pdb
 
 db=0 
 banktop = './st1/'                # bank csv files
-allCash= './out1/CashAll_21.txt'
+allCash= './out1/CashAll_22.txt'
+YEAR1='2022'
+YEAR2='22'
 
 def proces1(fx,gx,opt):
    print('      %s' %(fx))   
    f1= open(fx,'r')
    g1 = open(gx,'a')  
    g1.write('\n\n %s \n' %(fx))   
-   f1lines = f1.readlines()
+   f1lines = f1.readlines()   
    for lina in f1lines:
       linb = lina.rstrip()
       itm = linb.split(',')     
@@ -60,7 +63,7 @@ if __name__ == "__main__":
    if not os.path.exists('out1'):
       os.mkdir('out1') 
    g3= open(allCash,'w')
-   g3.write('      Cash All Activity 2021 \n\n')
+   g3.write('      Cash All Activity %s - out1/CashAll_%s.txt  \n\n' %(YEAR1,YEAR2))
    g3.close()   
    proc('cashflow','Cashflow',allCash,2)  
    proc('guesth','Guesthouse 9206',allCash,2)  

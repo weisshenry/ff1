@@ -6,7 +6,8 @@ import pdb
 
 db=0 
 banktop = './st1/'                #  input: bank csv files
-ca21Txt= 'ca21.txt'               # output: ca21.txt ( per 'find' )
+ca21Txt= './out1/ca22.txt'               # output: ca22.txt ( per 'find' )
+YR1 ='22'
 
 def exclude1(line):
    w1 = line.find('TO ACC')
@@ -70,7 +71,7 @@ def proces1(fx,ca21Txt,opt):
 def proc(nam,nam1,opt): 
    gv= open(ca21Txt,'a') 
    gv.write(' ,  , \n')
-   gv.write(' ,          '+nam1+' Account Activity 2021  ,\n')
+   gv.write(' ,          '+nam1+' Account Activity 20%s  ,\n' %(YR1))
    gv.write(' ,  , \n')
    gv.close()
    for i in range(12,9,-1):
@@ -93,12 +94,12 @@ if __name__ == "__main__":
    print(' start')     
    gv= open(ca21Txt,'w'); 
    gv.write(' ,  , \n')
-   gv.write(' ,  File:  ac1.txt   Consolidated from all bank statements   ,\n')
+   gv.write(' ,  File:  ca%s.txt   Consolidated from all bank statements   ,\n' %(YR1))
    gv.write(' ,      4735 =Cash      0501 =Main      9206 = Guesthouse    ,\n')
    gv.write(' ,      0509 =Constr    0584 =Farm                           ,\n')
    gv.write(' ,  Note: Exclude TRF_TO_LOAN or TO_ACC_XXX                  ,\n')
-   gv.write(' ,  This file is matched w/ ex1.txt  Paper trail of all      ,\n')
-   gv.write(' ,  expenses. The file check21.txt will tag any discrepancies,\n')
+   gv.write(' ,  This file is matched w/ ex%s.txt  Paper trail of all      ,\n' %(YR1))
+   gv.write(' ,  expenses. The file check%s.txt will tag any discrepancies,\n'  %(YR1))
    gv.write(' ,  i.e. any expense listed here not on the papar trail.     ,\n')
    gv.write(' ,  , \n')
    gv.close()       
