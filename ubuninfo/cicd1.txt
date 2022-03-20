@@ -1,0 +1,57 @@
+CI/CD info file
+
+
+hub.docker.com _node
+
+echo $?  <-- last return code
+
+------------------------------
+build website
+  image: node:lts
+  script:
+    - npm install
+    - npm install -g gatsby-cli
+    - gatsby build
+  artifacts:
+    paths:
+      - ./public   
+---------------------------     
+
+---
+sudo apt-get install -y nodejs 
+npm install -g gatsby
+---
+gatsby develop
+------- .gitlab-ci.yml --------------------
+(whole purpose of repo)
+stages:
+  - build
+  - test
+
+build the car:
+  stage: build
+  script:
+    - echo "building"
+    - mkdir build
+    - touch build/info.txt
+    - cd build
+    - echo "chassis" >> info.txt
+    - echo "trunk" >> info.txt
+    - echo "engine"   >> info.txt
+    - echo "wheels"   >> info.txt
+  artifacts:
+    paths:
+      - build/
+
+test the car:
+  stage: test
+  script:
+    - ls
+    - echo  "testing"  
+    - test -f "build/info.txt"        
+    - cd build
+    - cat info.txt
+    - grep "engine" info.txt
+    - grep "trunk" info.txt
+--------------------------------------------------
+
