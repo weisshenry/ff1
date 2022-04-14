@@ -1,0 +1,30 @@
+pytorch in a conda env:
+
+conda create -n pt1 -c pytorch pytorch torchvision
+
+mkdir -p ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+rm -rf ~/miniconda3/miniconda.sh
+~/miniconda3/bin/conda init bash
+~/miniconda3/bin/conda init zsh
+
+jupyter notebook
+  sudo apt update && sudo apt -y upgrade
+  mkdir notebook
+cd notebook
+virtualenv jupyterenv
+pip install jupyter
+jupyter notebook
+
+jupyter notebook notebook.ipynb
+
+conda create -n jp1 python=3.9.12
+
+sudo add-apt-repository ppa:graphics-drivers/ppa
+
+sudo ubuntu-drivers autoinstall
+reboot
+
+pip install torchvision  (for both torch and torchvision)
+

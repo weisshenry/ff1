@@ -1,4 +1,23 @@
 ---- ubuntu docker -----------------
+
+
+docker pull node
+-- docker images; docker ps -a 
+docker run -t node bash
+npm update gatsby
+npm install 
+npm install -g gatsby-cli
+gasby new stat-site
+cd stat-site
+gatsby buld
+
+--------- stop sudo -----------
+sudo groupadd docker
+sudo gpasswd -a $USER docker
+newgrp docker
+------------------------------
+
+
 sudo systemctl start docker
 docker images
 docker ps -a
@@ -8,6 +27,14 @@ docker run hello-world
  sudo systemctl enable docker.service
  sudo systemctl enable containerd.service
 docker system prune -a
+
+docker.com  <-- search for images
+docker pull node
+
+sudo apt install docker.io
+
+
+
 
  
 
