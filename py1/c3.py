@@ -13,9 +13,9 @@ import sys, os,time, shutil, glob
 import numpy as np
 import pdb
  
-ca21Ttxt= './out1/ca22.txt'        # INPUT
-ex21Txt= './st2/ex22.txt'         # INPUT
-check21= './out1/check22.txt'      # Output
+ca21Ttxt= 'ca22.txt'        # INPUT
+ex21Txt= './st2/ex22.txt'   # INPUT
+check21= 'check22.txt'      # Output
 kywd=[ \
    # 1099 Work
      'BRITTANY KUHLMAN','KODY KUHLMAN','DEB SCHROEDER',\
@@ -40,7 +40,8 @@ kywd=[ \
      'TLR18004','TLR18005','TLR18009','TLR18010',\
      '1005 CHECK','1007 CHECK','1008 CHECK','RETURN ITEM',\
      '1014 CHECK','TLR18006','TLR18004','V104014', 'MED*HCT','2G1AA',\
-     '1009 CHECK','1013 CHECK','1011 CHECK','1012 CHECK']
+     '1009 CHECK','1013 CHECK','1011 CHECK','1012 CHECK',
+     '1015','1016','WITHDRAWAL']
 
 def findit(glin,amt,dat,txt):
    k = len(glin)   
@@ -100,16 +101,15 @@ def proces1(ca21Ttxt,ex21Txt,check21):
    print('   Input: %s, %s  Output:  %s' %(ca21Ttxt,ex21Txt,check21))  
    f1= open(ca21Ttxt,'r')
    ct =0
-   #for filex in glob.glob("st2/*.txt"):
-   #    ct = ct +1
-   #    print('   Using input: %s' %(filex))
-   #if ct==1:
-   #   g1=open(filex,'r') 
-   #else:
-   #   print('   Error: Too many/few files in dir st2')
-   #   sys.exit()      
-   #pdb.set_trace()
-   g1 = open(ex21Txt,'r') 
+   for filex in glob.glob("st2/*.txt"):
+       ct = ct +1
+       print('   Using input: %s' %(filex))
+   if ct==1:
+      g1=open(filex,'r') 
+   else:
+      print('   Error: Too many/few files in dir st2')
+      sys.exit()      
+   #pdb.set_trace() #g1 = open(ex21Txt,'r') 
    h1 = open(check21,'w') 
    h1.write('       --- File %s ---  check of ca(YY).txt  ' %(check21))
    flin = f1.readlines()
@@ -124,11 +124,11 @@ def proces1(ca21Ttxt,ex21Txt,check21):
            amt = float(itm[2])      
          except:
            amt =0.0
-         dat = itm[0]                  
+         dat = itm[0]        
          txt = itm[1]                 
          jj =0
          if (len(dat) > 7):
-            jj = findit(glin,amt,dat,txt)                      
+            jj = findit(glin,amt,dat,txt)            
          if jj:         
             h1.write('  %s %-60s %10.2f \n' %(dat,txt,float(amt)))  
          elif (len(dat) > 7):
@@ -142,7 +142,7 @@ def proces1(ca21Ttxt,ex21Txt,check21):
 
 if __name__ == "__main__":
    print('   start') 
-   print('   Note: If NO MATCH appears, add the expense to ex21.txt ')   
+   print('   Note: If NO MATCH appears, add the expense to %s' %(ex21Txt))   
    proces1(ca21Ttxt,ex21Txt,check21)    
    print('   end ')   
    sys.exit()  

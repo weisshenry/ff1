@@ -6,7 +6,7 @@ import pdb
 
 db=0 
 banktop = './st1/'                #  input: bank csv files
-ca21Txt= './out1/ca22.txt'               # output: ca22.txt ( per 'find' )
+ca21Txt= 'ca22.txt'               # output: ca22.txt ( per 'find' )
 YR1 ='22'
 
 def exclude1(line):
