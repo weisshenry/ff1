@@ -4,3 +4,9 @@ Info on github and gitlab repos
 github -->
    ff1
    SmartThingsPublic
+   
+gitlab   (weisshenry9) nothing in this
+         just nice to have a gitlab acct
+   Test Ci Cd
+   stk1      
+            
