@@ -1,3 +1,12 @@
+5/8/22
+Plan:
+
+  3 pytorch examples
+    training 
+    testing
+
+
+
 pytorch in a conda env:
 
 conda create -n pt1 -c pytorch pytorch torchvision
